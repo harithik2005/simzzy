@@ -1,0 +1,35 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+/node_modules
+node_modules/
+.pnp
+.pnp.*
+
+# ── Next.js build output / caches ─────────────────────────────────────────────
+/.next/
+.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Environment ───────────────────────────────────────────────────────────────
+.env
+.env.local
+.env*.local
+
+# ── Deploy / platform ─────────────────────────────────────────────────────────
+.vercel
+
+# ── Editor / OS / tooling ─────────────────────────────────────────────────────
+*~
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/settings.local.json
+
+# ── Debug logs ────────────────────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

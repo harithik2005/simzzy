@@ -1,4 +1,23 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
 node_modules/
+
+# ── Environment (keep the example template) ───────────────────────────────────
 .env
 .env.*
 !.env.example
+
+# ── Build output / caches ─────────────────────────────────────────────────────
+dist/
+*.tsbuildinfo
+
+# ── Local diagnostics / scratch ───────────────────────────────────────────────
+_diag*
+_tsim_*.json
+_tsim_*.txt
+
+# ── Editor / OS / tooling ─────────────────────────────────────────────────────
+*~
+.DS_Store
+Thumbs.db
+*.log
+.claude/settings.local.json
