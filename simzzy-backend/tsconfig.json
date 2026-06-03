@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "client.ts",
+    "src/**/*",
+    "prisma/seed.ts",
+    "prisma/seed-superadmin.ts",
+    "prisma/seed-plans.ts",
+    "prisma/seed-pricing.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

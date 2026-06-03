@@ -1,0 +1,16 @@
+{
+  "name": "simzzy-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simzzy — global eSIM marketplace. npm workspaces: simzzy-frontend (Next.js app) + simzzy-backend (Prisma/PostgreSQL).",
+  "workspaces": [
+    "simzzy-frontend",
+    "simzzy-backend"
+  ],
+  "scripts": {
+    "postinstall": "npm --workspace simzzy-backend run generate",
+    "dev": "npm --workspace simzzy-frontend run dev",
+    "build": "npm --workspace simzzy-frontend run build",
+    "db:seed": "npm --workspace simzzy-backend run seed"
+  }
+}

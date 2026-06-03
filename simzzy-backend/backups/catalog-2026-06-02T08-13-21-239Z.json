@@ -1,0 +1,2799 @@
+{
+  "takenAt": "2026-06-02T08:13:21.241Z",
+  "plans": [
+    {
+      "id": "b4fb7a00-a7bc-402d-855b-80822ef1292a",
+      "slug": "morocco-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-MA-5GB-30D",
+      "name": "Morocco 5GB",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "primaryCountryId": "f7dda5b9-fa6e-49aa-9ee3-0f7c018a45dd",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Maroc Telecom",
+      "speed": "4G/LTE",
+      "costUsd": "7.49",
+      "cachedSellingPriceUsd": "12.49",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇲🇦",
+        "name": "Morocco 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-MA-5GB-30D",
+        "region": "Africa",
+        "country": "Morocco",
+        "network": "Maroc Telecom",
+        "popular": false,
+        "priceUsd": 7.49,
+        "destinations": [
+          "Morocco"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:08.957Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "529c9bfe-0b24-44da-a79e-dafbe18cf98d",
+      "slug": "kenya-3gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-KE-3GB-30D",
+      "name": "Kenya 3GB",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "primaryCountryId": "a0ae7986-1577-4039-8efd-6030d97774e9",
+      "data": "3GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Safaricom",
+      "speed": "4G/LTE",
+      "costUsd": "6.49",
+      "cachedSellingPriceUsd": "11.49",
+      "popular": false,
+      "badge": "Budget",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "3GB",
+        "days": 30,
+        "flag": "🇰🇪",
+        "name": "Kenya 3GB",
+        "badge": "Budget",
+        "speed": "4G/LTE",
+        "esimId": "TS-KE-3GB-30D",
+        "region": "Africa",
+        "country": "Kenya",
+        "network": "Safaricom",
+        "popular": false,
+        "priceUsd": 6.49,
+        "destinations": [
+          "Kenya"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:11.010Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "7d0ceee4-4c57-401b-b01b-33c91145c93f",
+      "slug": "italy-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-IT-5GB-30D",
+      "name": "Italy 5GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "08e53c24-9661-491f-9856-b4125adcfd88",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "TIM",
+      "speed": "4G/LTE",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇮🇹",
+        "name": "Italy 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-IT-5GB-30D",
+        "region": "Europe",
+        "country": "Italy",
+        "network": "TIM",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "Italy"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:26.129Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "d6efcd91-831d-466d-adc1-23e18cf4cb5f",
+      "slug": "spain-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-ES-5GB-30D",
+      "name": "Spain 5GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "72161f9d-e598-4034-8a77-e05aa795a1db",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Movistar",
+      "speed": "4G/LTE",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇪🇸",
+        "name": "Spain 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-ES-5GB-30D",
+        "region": "Europe",
+        "country": "Spain",
+        "network": "Movistar",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "Spain"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:27.337Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "82ad88de-6346-458c-8bc5-5ea24fee0b07",
+      "slug": "turkey-7gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-TR-7GB-30D",
+      "name": "Turkey 7GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "b7f39d47-c978-4414-84d0-203b92ccf8b7",
+      "data": "7GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Turkcell",
+      "speed": "4G/LTE",
+      "costUsd": "6.99",
+      "cachedSellingPriceUsd": "11.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "7GB",
+        "days": 30,
+        "flag": "🇹🇷",
+        "name": "Turkey 7GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-TR-7GB-30D",
+        "region": "Europe",
+        "country": "Turkey",
+        "network": "Turkcell",
+        "popular": false,
+        "priceUsd": 6.99,
+        "destinations": [
+          "Turkey"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:28.948Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "4ece9414-2cbe-4118-8051-e0acbe13d7ad",
+      "slug": "canada-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-CA-5GB-30D",
+      "name": "Canada 5GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": "a6145670-bbab-47be-822a-e5c3bb3ae382",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Rogers",
+      "speed": "5G",
+      "costUsd": "8.99",
+      "cachedSellingPriceUsd": "13.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇨🇦",
+        "name": "Canada 5GB",
+        "speed": "5G",
+        "esimId": "TS-CA-5GB-30D",
+        "region": "Americas",
+        "country": "Canada",
+        "network": "Rogers",
+        "popular": false,
+        "priceUsd": 8.99,
+        "destinations": [
+          "Canada"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:33.730Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "e92fc1fe-d5f9-4010-bf2e-736e68851a27",
+      "slug": "mexico-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-MX-5GB-30D",
+      "name": "Mexico 5GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": "d2de29b3-8763-43d9-ab52-966561474963",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Telcel",
+      "speed": "4G/LTE",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇲🇽",
+        "name": "Mexico 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-MX-5GB-30D",
+        "region": "Americas",
+        "country": "Mexico",
+        "network": "Telcel",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "Mexico"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:36.449Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "bd3b44fb-743d-4e26-8182-694e11088018",
+      "slug": "brazil-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-BR-5GB-30D",
+      "name": "Brazil 5GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": "35f7cebd-dbd7-4227-bf7d-b3527f47f372",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Vivo",
+      "speed": "4G/LTE",
+      "costUsd": "8.49",
+      "cachedSellingPriceUsd": "13.49",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇧🇷",
+        "name": "Brazil 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-BR-5GB-30D",
+        "region": "Americas",
+        "country": "Brazil",
+        "network": "Vivo",
+        "popular": false,
+        "priceUsd": 8.49,
+        "destinations": [
+          "Brazil"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:38.850Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "slug": "americas-regional-10gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-AM-10GB-30D",
+      "name": "Americas Regional 10GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": null,
+      "data": "10GB",
+      "fup": "Full 4G/LTE speed across 15 destinations in the Americas",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "21.99",
+      "cachedSellingPriceUsd": "26.99",
+      "popular": false,
+      "badge": "Regional",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 15 destinations in the Americas",
+        "data": "10GB",
+        "days": 30,
+        "flag": "🌎",
+        "name": "Americas Regional 10GB",
+        "badge": "Regional",
+        "speed": "4G/LTE",
+        "esimId": "TS-AM-10GB-30D",
+        "region": "Americas",
+        "country": "Americas",
+        "network": "Multi-network",
+        "popular": false,
+        "priceUsd": 21.99,
+        "destinations": [
+          "United States",
+          "Canada",
+          "Mexico",
+          "Brazil",
+          "Argentina",
+          "Chile",
+          "Colombia",
+          "Peru"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:40.294Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "0be43ac2-8211-4d72-9604-f87174c7b6d2",
+      "slug": "israel-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-IL-5GB-30D",
+      "name": "Israel 5GB",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "primaryCountryId": "1e578681-0fd5-477e-b84a-2c9957dd079b",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Partner",
+      "speed": "4G/LTE",
+      "costUsd": "9.99",
+      "cachedSellingPriceUsd": "14.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇮🇱",
+        "name": "Israel 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-IL-5GB-30D",
+        "region": "Middle East",
+        "country": "Israel",
+        "network": "Partner",
+        "popular": false,
+        "priceUsd": 9.99,
+        "destinations": [
+          "Israel"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:52.626Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "72d246c8-8278-43e3-ab00-2b6c02747798",
+      "slug": "qatar-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-QA-5GB-30D",
+      "name": "Qatar 5GB",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "primaryCountryId": "ad89a3d6-8809-4d18-a8de-c06f11f8a2ca",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Ooredoo",
+      "speed": "5G",
+      "costUsd": "9.49",
+      "cachedSellingPriceUsd": "14.49",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇶🇦",
+        "name": "Qatar 5GB",
+        "speed": "5G",
+        "esimId": "TS-QA-5GB-30D",
+        "region": "Middle East",
+        "country": "Qatar",
+        "network": "Ooredoo",
+        "popular": false,
+        "priceUsd": 9.49,
+        "destinations": [
+          "Qatar"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:55.359Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "89a98999-29ba-4447-92c3-72ad6a664905",
+      "slug": "egypt-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-EG-5GB-30D",
+      "name": "Egypt 5GB",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "primaryCountryId": "cf99925e-b64d-4909-90eb-60d69caa465d",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Vodafone EG",
+      "speed": "4G/LTE",
+      "costUsd": "6.99",
+      "cachedSellingPriceUsd": "11.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇪🇬",
+        "name": "Egypt 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-EG-5GB-30D",
+        "region": "Africa",
+        "country": "Egypt",
+        "network": "Vodafone EG",
+        "popular": false,
+        "priceUsd": 6.99,
+        "destinations": [
+          "Egypt"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:05.735Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "d52927df-ffae-4590-8266-ed864d6e1d11",
+      "slug": "south-africa-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-ZA-5GB-30D",
+      "name": "South Africa 5GB",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "primaryCountryId": "f20fde7d-67c2-4272-a1d9-449fb39c8a68",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Vodacom",
+      "speed": "4G/LTE",
+      "costUsd": "7.49",
+      "cachedSellingPriceUsd": "12.49",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇿🇦",
+        "name": "South Africa 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-ZA-5GB-30D",
+        "region": "Africa",
+        "country": "South Africa",
+        "network": "Vodacom",
+        "popular": false,
+        "priceUsd": 7.49,
+        "destinations": [
+          "South Africa"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:07.330Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "becb9051-c3c2-4b25-adef-604e15dd61b9",
+      "slug": "australia-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-AU-5GB-30D",
+      "name": "Australia 5GB",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "primaryCountryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Telstra",
+      "speed": "5G",
+      "costUsd": "8.99",
+      "cachedSellingPriceUsd": "13.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇦🇺",
+        "name": "Australia 5GB",
+        "speed": "5G",
+        "esimId": "TS-AU-5GB-30D",
+        "region": "Oceania",
+        "country": "Australia",
+        "network": "Telstra",
+        "popular": false,
+        "priceUsd": 8.99,
+        "destinations": [
+          "Australia"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:15.035Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "101743d2-0e0b-4d55-86e3-9069e162e961",
+      "slug": "new-zealand-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-NZ-5GB-30D",
+      "name": "New Zealand 5GB",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "primaryCountryId": "1d523da1-e82b-498d-a23b-807a7f447cfa",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Spark",
+      "speed": "4G/LTE",
+      "costUsd": "8.99",
+      "cachedSellingPriceUsd": "13.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇳🇿",
+        "name": "New Zealand 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-NZ-5GB-30D",
+        "region": "Oceania",
+        "country": "New Zealand",
+        "network": "Spark",
+        "popular": false,
+        "priceUsd": 8.99,
+        "destinations": [
+          "New Zealand"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:17.115Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "slug": "global-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-GL-5GB-30D",
+      "name": "Global 5GB",
+      "regionId": "e189ac77-bec7-469c-aec3-38dd56c01aea",
+      "primaryCountryId": null,
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed across 130+ destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "29.99",
+      "cachedSellingPriceUsd": "34.99",
+      "popular": true,
+      "badge": "Popular",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 130+ destinations",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🌍",
+        "name": "Global 5GB",
+        "badge": "Popular",
+        "speed": "4G/LTE",
+        "esimId": "TS-GL-5GB-30D",
+        "region": "Global",
+        "country": "Global",
+        "network": "Multi-network",
+        "popular": true,
+        "priceUsd": 29.99,
+        "destinations": [
+          "United States",
+          "United Kingdom",
+          "Japan",
+          "Australia",
+          "France",
+          "Germany",
+          "India",
+          "UAE",
+          "Singapore",
+          "Thailand",
+          "+120 more"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:25.154Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "slug": "global-10gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-GL-10GB-30D",
+      "name": "Global 10GB",
+      "regionId": "e189ac77-bec7-469c-aec3-38dd56c01aea",
+      "primaryCountryId": null,
+      "data": "10GB",
+      "fup": "Full 4G/LTE speed across 130+ destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "49.99",
+      "cachedSellingPriceUsd": "54.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 130+ destinations",
+        "data": "10GB",
+        "days": 30,
+        "flag": "🌍",
+        "name": "Global 10GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-GL-10GB-30D",
+        "region": "Global",
+        "country": "Global",
+        "network": "Multi-network",
+        "popular": false,
+        "priceUsd": 49.99,
+        "destinations": [
+          "United States",
+          "United Kingdom",
+          "Japan",
+          "Australia",
+          "France",
+          "Germany",
+          "India",
+          "UAE",
+          "Singapore",
+          "Thailand",
+          "+120 more"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:30.055Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "af69cd5b-0157-4e23-a0c7-8035ccdc7bf7",
+      "slug": "usa-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-US-5GB-30D",
+      "name": "USA 5GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "T-Mobile",
+      "speed": "5G",
+      "costUsd": "8.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": true,
+      "badge": "5G",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇺🇸",
+        "name": "USA 5GB",
+        "badge": "5G",
+        "speed": "5G",
+        "esimId": "TS-US-5GB-30D",
+        "region": "Americas",
+        "country": "USA",
+        "network": "T-Mobile",
+        "popular": true,
+        "priceUsd": 8.99,
+        "destinations": [
+          "United States"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:30.533Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "febd6c90-3757-44c9-9beb-a341f3f42fd5",
+      "slug": "united-kingdom-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-GB-5GB-30D",
+      "name": "United Kingdom 5GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "EE",
+      "speed": "4G/LTE",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "11.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇬🇧",
+        "name": "United Kingdom 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-GB-5GB-30D",
+        "region": "Europe",
+        "country": "UK",
+        "network": "EE",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "United Kingdom"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:20.565Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "d69269fc-6673-4740-8ca3-874149deaf41",
+      "slug": "uae-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-AE-5GB-30D",
+      "name": "UAE 5GB",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "primaryCountryId": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Etisalat",
+      "speed": "5G",
+      "costUsd": "8.99",
+      "cachedSellingPriceUsd": "13.99",
+      "popular": true,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇦🇪",
+        "name": "UAE 5GB",
+        "speed": "5G",
+        "esimId": "TS-AE-5GB-30D",
+        "region": "Middle East",
+        "country": "UAE",
+        "network": "Etisalat",
+        "popular": true,
+        "priceUsd": 8.99,
+        "destinations": [
+          "United Arab Emirates"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:49.411Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "181d5d87-7da8-475a-bcfb-5e45864b109e",
+      "slug": "usa-15gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-US-15GB-30D",
+      "name": "USA 15GB",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "primaryCountryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "data": "15GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "AT&T",
+      "speed": "5G",
+      "costUsd": "16.99",
+      "cachedSellingPriceUsd": "20.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "15GB",
+        "days": 30,
+        "flag": "🇺🇸",
+        "name": "USA 15GB",
+        "speed": "5G",
+        "esimId": "TS-US-15GB-30D",
+        "region": "Americas",
+        "country": "USA",
+        "network": "AT&T",
+        "popular": false,
+        "priceUsd": 16.99,
+        "destinations": [
+          "United States"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:32.161Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "5b87fff9-02ee-42a6-9240-914b0858c7d6",
+      "slug": "south-korea-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-KR-5GB-30D",
+      "name": "South Korea 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "1e756c0e-dd0c-41a9-b945-87ca0765b501",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "SK Telecom",
+      "speed": "5G",
+      "costUsd": "9.99",
+      "cachedSellingPriceUsd": "14.99",
+      "popular": true,
+      "badge": "5G",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇰🇷",
+        "name": "South Korea 5GB",
+        "badge": "5G",
+        "speed": "5G",
+        "esimId": "TS-KR-5GB-30D",
+        "region": "Asia",
+        "country": "South Korea",
+        "network": "SK Telecom",
+        "popular": true,
+        "priceUsd": 9.99,
+        "destinations": [
+          "South Korea"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:40.467Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "46977ee7-7b96-4509-b89d-b3a5765907a2",
+      "slug": "thailand-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-TH-5GB-30D",
+      "name": "Thailand 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "AIS",
+      "speed": "4G/LTE",
+      "costUsd": "6.99",
+      "cachedSellingPriceUsd": "11.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇹🇭",
+        "name": "Thailand 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-TH-5GB-30D",
+        "region": "Asia",
+        "country": "Thailand",
+        "network": "AIS",
+        "popular": false,
+        "priceUsd": 6.99,
+        "destinations": [
+          "Thailand"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:43.102Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "2c94e7a8-409c-49a8-9892-7ef44fcef338",
+      "slug": "japan-15gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-JP-15GB-30D",
+      "name": "Japan 15GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "data": "15GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "SoftBank",
+      "speed": "5G",
+      "costUsd": "17.99",
+      "cachedSellingPriceUsd": "20.99",
+      "popular": false,
+      "badge": "5G",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "15GB",
+        "days": 30,
+        "flag": "🇯🇵",
+        "name": "Japan 15GB",
+        "badge": "5G",
+        "speed": "5G",
+        "esimId": "TS-JP-15GB-30D",
+        "region": "Asia",
+        "country": "Japan",
+        "network": "SoftBank",
+        "popular": false,
+        "priceUsd": 17.99,
+        "destinations": [
+          "Japan"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:38.691Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "31136479-cc3e-48d0-a9cb-2691804d3c3f",
+      "slug": "india-3gb-28days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-IN-3GB-28D",
+      "name": "India 3GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "data": "3GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 28,
+      "apn": "tsim",
+      "network": "Airtel",
+      "speed": "4G/LTE",
+      "costUsd": "3.99",
+      "cachedSellingPriceUsd": "5.99",
+      "popular": false,
+      "badge": "Budget",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "3GB",
+        "days": 28,
+        "flag": "🇮🇳",
+        "name": "India 3GB",
+        "badge": "Budget",
+        "speed": "4G/LTE",
+        "esimId": "TS-IN-3GB-28D",
+        "region": "Asia",
+        "country": "India",
+        "network": "Airtel",
+        "popular": false,
+        "priceUsd": 3.99,
+        "destinations": [
+          "India"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:44.138Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "c412ced4-d8fd-4e09-949c-4432c8d0bbc2",
+      "slug": "india-10gb-28days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-IN-10GB-28D",
+      "name": "India 10GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "data": "10GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 28,
+      "apn": "tsim",
+      "network": "Jio",
+      "speed": "5G",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "9.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "10GB",
+        "days": 28,
+        "flag": "🇮🇳",
+        "name": "India 10GB",
+        "speed": "5G",
+        "esimId": "TS-IN-10GB-28D",
+        "region": "Asia",
+        "country": "India",
+        "network": "Jio",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "India"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:45.821Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "10d58ade-ab9b-4dfb-b4e5-4a007588cf02",
+      "slug": "singapore-3gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-SG-3GB-30D",
+      "name": "Singapore 3GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "data": "3GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Singtel",
+      "speed": "5G",
+      "costUsd": "6.99",
+      "cachedSellingPriceUsd": "11.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "3GB",
+        "days": 30,
+        "flag": "🇸🇬",
+        "name": "Singapore 3GB",
+        "speed": "5G",
+        "esimId": "TS-SG-3GB-30D",
+        "region": "Asia",
+        "country": "Singapore",
+        "network": "Singtel",
+        "popular": false,
+        "priceUsd": 6.99,
+        "destinations": [
+          "Singapore"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:47.849Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "c85b34dc-db55-4258-b212-5efd2a73dd19",
+      "slug": "japan-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-JP-5GB-30D",
+      "name": "Japan 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "NTT Docomo",
+      "speed": "4G/LTE",
+      "costUsd": "9.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": true,
+      "badge": "Popular",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇯🇵",
+        "name": "Japan 5GB",
+        "badge": "Popular",
+        "speed": "4G/LTE",
+        "esimId": "TS-JP-5GB-30D",
+        "region": "Asia",
+        "country": "Japan",
+        "network": "NTT Docomo",
+        "popular": true,
+        "priceUsd": 9.99,
+        "destinations": [
+          "Japan"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:35.127Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "8a7c5b29-e441-475f-894f-1ff6d603c5e4",
+      "slug": "france-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-FR-5GB-30D",
+      "name": "France 5GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Orange",
+      "speed": "4G/LTE",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇫🇷",
+        "name": "France 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-FR-5GB-30D",
+        "region": "Europe",
+        "country": "France",
+        "network": "Orange",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "France"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:21.674Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "85f158ef-4bf2-4cdc-b663-d2eae8dc0fe6",
+      "slug": "germany-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-DE-5GB-30D",
+      "name": "Germany 5GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "data": "5GB",
+      "fup": "Full 5G speed; no throttling within allowance",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Deutsche Telekom",
+      "speed": "5G",
+      "costUsd": "7.99",
+      "cachedSellingPriceUsd": "12.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 5G speed; no throttling within allowance",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇩🇪",
+        "name": "Germany 5GB",
+        "speed": "5G",
+        "esimId": "TS-DE-5GB-30D",
+        "region": "Europe",
+        "country": "Germany",
+        "network": "Deutsche Telekom",
+        "popular": false,
+        "priceUsd": 7.99,
+        "destinations": [
+          "Germany"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:23.490Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "e75f2d3b-5cf7-4ab6-8124-e633309ca70f",
+      "slug": "saudi-arabia-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-SA-5GB-30D",
+      "name": "Saudi Arabia 5GB",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "primaryCountryId": "9b6cadea-4629-4b88-8b86-2fd560775851",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "STC",
+      "speed": "4G/LTE",
+      "costUsd": "9.49",
+      "cachedSellingPriceUsd": "14.49",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇸🇦",
+        "name": "Saudi Arabia 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-SA-5GB-30D",
+        "region": "Middle East",
+        "country": "Saudi Arabia",
+        "network": "STC",
+        "popular": false,
+        "priceUsd": 9.49,
+        "destinations": [
+          "Saudi Arabia"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:51.217Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "2ff04af7-5ce9-4f9d-b5de-b3591c977a30",
+      "slug": "malaysia-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-MY-5GB-30D",
+      "name": "Malaysia 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "16dc7978-7e62-49e0-a7b1-3bfefbb5d181",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Maxis",
+      "speed": "4G/LTE",
+      "costUsd": "5.99",
+      "cachedSellingPriceUsd": "10.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇲🇾",
+        "name": "Malaysia 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-MY-5GB-30D",
+        "region": "Asia",
+        "country": "Malaysia",
+        "network": "Maxis",
+        "popular": false,
+        "priceUsd": 5.99,
+        "destinations": [
+          "Malaysia"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:50.690Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "7aa2a73e-5104-49d0-92c3-5b1a478c4960",
+      "slug": "indonesia-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-ID-5GB-30D",
+      "name": "Indonesia 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "48510453-0699-4b0b-b3a3-5ce88635c6a7",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Telkomsel",
+      "speed": "4G/LTE",
+      "costUsd": "5.99",
+      "cachedSellingPriceUsd": "10.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇮🇩",
+        "name": "Indonesia 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-ID-5GB-30D",
+        "region": "Asia",
+        "country": "Indonesia",
+        "network": "Telkomsel",
+        "popular": false,
+        "priceUsd": 5.99,
+        "destinations": [
+          "Indonesia"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:55.490Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "a76d47aa-55dc-46f5-901b-8532124d0fad",
+      "slug": "vietnam-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-VN-5GB-30D",
+      "name": "Vietnam 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "6b7d154a-b6e3-483f-83f5-af107b7eb8f2",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Viettel",
+      "speed": "4G/LTE",
+      "costUsd": "5.99",
+      "cachedSellingPriceUsd": "10.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇻🇳",
+        "name": "Vietnam 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-VN-5GB-30D",
+        "region": "Asia",
+        "country": "Vietnam",
+        "network": "Viettel",
+        "popular": false,
+        "priceUsd": 5.99,
+        "destinations": [
+          "Vietnam"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:56.608Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "70cf9c00-4676-41dc-95c6-457711b99545",
+      "slug": "philippines-5gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-PH-5GB-30D",
+      "name": "Philippines 5GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": "fe7a813e-2581-4f1e-920a-6f949117c2d5",
+      "data": "5GB",
+      "fup": "Full 4G/LTE speed until data is used up",
+      "days": 30,
+      "apn": "tsim",
+      "network": "Globe",
+      "speed": "4G/LTE",
+      "costUsd": "5.99",
+      "cachedSellingPriceUsd": "10.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim",
+        "fup": "Full 4G/LTE speed until data is used up",
+        "data": "5GB",
+        "days": 30,
+        "flag": "🇵🇭",
+        "name": "Philippines 5GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-PH-5GB-30D",
+        "region": "Asia",
+        "country": "Philippines",
+        "network": "Globe",
+        "popular": false,
+        "priceUsd": 5.99,
+        "destinations": [
+          "Philippines"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:57.823Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "slug": "asia-regional-10gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-ASIA-10GB-30D",
+      "name": "Asia Regional 10GB",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "primaryCountryId": null,
+      "data": "10GB",
+      "fup": "Full 4G/LTE speed across 13 Asian destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "18.99",
+      "cachedSellingPriceUsd": "23.99",
+      "popular": true,
+      "badge": "Regional",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 13 Asian destinations",
+        "data": "10GB",
+        "days": 30,
+        "flag": "🌏",
+        "name": "Asia Regional 10GB",
+        "badge": "Regional",
+        "speed": "4G/LTE",
+        "esimId": "TS-ASIA-10GB-30D",
+        "region": "Asia",
+        "country": "Asia",
+        "network": "Multi-network",
+        "popular": true,
+        "priceUsd": 18.99,
+        "destinations": [
+          "Japan",
+          "South Korea",
+          "Thailand",
+          "Singapore",
+          "Malaysia",
+          "Indonesia",
+          "Vietnam",
+          "Philippines",
+          "Hong Kong",
+          "Taiwan"
+        ]
+      },
+      "createdAt": "2026-05-30T07:58:59.009Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "slug": "europe-regional-10gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-EU-10GB-30D",
+      "name": "Europe Regional 10GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": null,
+      "data": "10GB",
+      "fup": "Full 4G/LTE speed across 36 European destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "12.99",
+      "cachedSellingPriceUsd": "17.99",
+      "popular": true,
+      "badge": "Best Value",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 36 European destinations",
+        "data": "10GB",
+        "days": 30,
+        "flag": "🇪🇺",
+        "name": "Europe Regional 10GB",
+        "badge": "Best Value",
+        "speed": "4G/LTE",
+        "esimId": "TS-EU-10GB-30D",
+        "region": "Europe",
+        "country": "Europe",
+        "network": "Multi-network",
+        "popular": true,
+        "priceUsd": 12.99,
+        "destinations": [
+          "United Kingdom",
+          "France",
+          "Germany",
+          "Italy",
+          "Spain",
+          "Netherlands",
+          "Portugal",
+          "Greece",
+          "Austria",
+          "Switzerland"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:08.450Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "slug": "europe-regional-20gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-EU-20GB-30D",
+      "name": "Europe Regional 20GB",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "primaryCountryId": null,
+      "data": "20GB",
+      "fup": "Full 4G/LTE speed across 36 European destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "19.99",
+      "cachedSellingPriceUsd": "24.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 36 European destinations",
+        "data": "20GB",
+        "days": 30,
+        "flag": "🇪🇺",
+        "name": "Europe Regional 20GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-EU-20GB-30D",
+        "region": "Europe",
+        "country": "Europe",
+        "network": "Multi-network",
+        "popular": false,
+        "priceUsd": 19.99,
+        "destinations": [
+          "United Kingdom",
+          "France",
+          "Germany",
+          "Italy",
+          "Spain",
+          "Netherlands",
+          "Portugal",
+          "Greece",
+          "Austria",
+          "Switzerland"
+        ]
+      },
+      "createdAt": "2026-05-30T07:59:15.170Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "18d86d8e-7adb-42a7-bdfb-668cac61daf0",
+      "slug": "oceania-regional-8gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-OC-8GB-30D",
+      "name": "Oceania Regional 8GB",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "primaryCountryId": null,
+      "data": "8GB",
+      "fup": "Full 4G/LTE speed across Australia, New Zealand & Fiji",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "16.99",
+      "cachedSellingPriceUsd": "21.99",
+      "popular": false,
+      "badge": "Regional",
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across Australia, New Zealand & Fiji",
+        "data": "8GB",
+        "days": 30,
+        "flag": "🌏",
+        "name": "Oceania Regional 8GB",
+        "badge": "Regional",
+        "speed": "4G/LTE",
+        "esimId": "TS-OC-8GB-30D",
+        "region": "Oceania",
+        "country": "Oceania",
+        "network": "Multi-network",
+        "popular": false,
+        "priceUsd": 16.99,
+        "destinations": [
+          "Australia",
+          "New Zealand",
+          "Fiji"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:18.220Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    },
+    {
+      "id": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "slug": "global-1gb-30days",
+      "providerId": "49831f42-dcf2-4c5b-bba1-fbb9fa6cce2b",
+      "esimId": "TS-GL-1GB-30D",
+      "name": "Global 1GB",
+      "regionId": "e189ac77-bec7-469c-aec3-38dd56c01aea",
+      "primaryCountryId": null,
+      "data": "1GB",
+      "fup": "Full 4G/LTE speed across 130+ destinations",
+      "days": 30,
+      "apn": "tsim.global",
+      "network": "Multi-network",
+      "speed": "4G/LTE",
+      "costUsd": "15.99",
+      "cachedSellingPriceUsd": "20.99",
+      "popular": false,
+      "badge": null,
+      "isActive": true,
+      "raw": {
+        "apn": "tsim.global",
+        "fup": "Full 4G/LTE speed across 130+ destinations",
+        "data": "1GB",
+        "days": 30,
+        "flag": "🌍",
+        "name": "Global 1GB",
+        "speed": "4G/LTE",
+        "esimId": "TS-GL-1GB-30D",
+        "region": "Global",
+        "country": "Global",
+        "network": "Multi-network",
+        "popular": false,
+        "priceUsd": 15.99,
+        "destinations": [
+          "United States",
+          "United Kingdom",
+          "Japan",
+          "Australia",
+          "France",
+          "Germany",
+          "India",
+          "UAE",
+          "Singapore",
+          "Thailand",
+          "+120 more"
+        ]
+      },
+      "createdAt": "2026-05-30T08:00:20.131Z",
+      "updatedAt": "2026-05-30T08:38:04.808Z",
+      "deletedAt": null
+    }
+  ],
+  "regions": [
+    {
+      "id": "e189ac77-bec7-469c-aec3-38dd56c01aea",
+      "code": "global",
+      "name": "Global",
+      "sortOrder": 0,
+      "createdAt": "2026-05-29T17:44:37.069Z",
+      "updatedAt": "2026-05-30T07:57:41.895Z"
+    },
+    {
+      "id": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "code": "asia",
+      "name": "Asia",
+      "sortOrder": 1,
+      "createdAt": "2026-05-29T17:44:37.278Z",
+      "updatedAt": "2026-05-30T07:57:42.688Z"
+    },
+    {
+      "id": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "code": "europe",
+      "name": "Europe",
+      "sortOrder": 2,
+      "createdAt": "2026-05-29T17:44:37.369Z",
+      "updatedAt": "2026-05-30T07:57:43.007Z"
+    },
+    {
+      "id": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "code": "north-america",
+      "name": "North America",
+      "sortOrder": 3,
+      "createdAt": "2026-05-29T17:44:37.677Z",
+      "updatedAt": "2026-05-30T07:57:43.166Z"
+    },
+    {
+      "id": "55104278-ac61-40dc-8135-13e59ce51051",
+      "code": "south-america",
+      "name": "South America",
+      "sortOrder": 4,
+      "createdAt": "2026-05-29T17:44:37.779Z",
+      "updatedAt": "2026-05-30T07:57:43.329Z"
+    },
+    {
+      "id": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "code": "africa",
+      "name": "Africa",
+      "sortOrder": 5,
+      "createdAt": "2026-05-29T17:44:37.869Z",
+      "updatedAt": "2026-05-30T07:57:43.528Z"
+    },
+    {
+      "id": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "code": "middle-east",
+      "name": "Middle East",
+      "sortOrder": 6,
+      "createdAt": "2026-05-29T17:44:37.969Z",
+      "updatedAt": "2026-05-30T07:57:43.814Z"
+    },
+    {
+      "id": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "code": "oceania",
+      "name": "Oceania",
+      "sortOrder": 7,
+      "createdAt": "2026-05-29T17:44:38.064Z",
+      "updatedAt": "2026-05-30T07:57:44.957Z"
+    }
+  ],
+  "countries": [
+    {
+      "id": "48510453-0699-4b0b-b3a3-5ce88635c6a7",
+      "code": "ID",
+      "name": "Indonesia",
+      "flag": "🇮🇩",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:41.382Z",
+      "updatedAt": "2026-05-30T07:57:48.777Z"
+    },
+    {
+      "id": "6b7d154a-b6e3-483f-83f5-af107b7eb8f2",
+      "code": "VN",
+      "name": "Vietnam",
+      "flag": "🇻🇳",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:42.010Z",
+      "updatedAt": "2026-05-30T07:57:48.949Z"
+    },
+    {
+      "id": "fe7a813e-2581-4f1e-920a-6f949117c2d5",
+      "code": "PH",
+      "name": "Philippines",
+      "flag": "🇵🇭",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:42.186Z",
+      "updatedAt": "2026-05-30T07:57:49.668Z"
+    },
+    {
+      "id": "6a1ce53d-cfeb-4a09-a333-ad253baa8a6f",
+      "code": "HK",
+      "name": "Hong Kong",
+      "flag": "🇭🇰",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:42.840Z",
+      "updatedAt": "2026-05-30T07:57:50.485Z"
+    },
+    {
+      "id": "6c4f1ef5-a091-4e3a-893d-a34997619558",
+      "code": "TW",
+      "name": "Taiwan",
+      "flag": "🇹🇼",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:43.048Z",
+      "updatedAt": "2026-05-30T07:57:50.743Z"
+    },
+    {
+      "id": "e65547b1-aa12-4822-8fe5-0957918c6836",
+      "code": "CN",
+      "name": "China",
+      "flag": "🇨🇳",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:44.486Z",
+      "updatedAt": "2026-05-30T07:57:51.101Z"
+    },
+    {
+      "id": "08e53c24-9661-491f-9856-b4125adcfd88",
+      "code": "IT",
+      "name": "Italy",
+      "flag": "🇮🇹",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:46.224Z",
+      "updatedAt": "2026-05-30T07:57:51.969Z"
+    },
+    {
+      "id": "72161f9d-e598-4034-8a77-e05aa795a1db",
+      "code": "ES",
+      "name": "Spain",
+      "flag": "🇪🇸",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:46.679Z",
+      "updatedAt": "2026-05-30T07:57:52.767Z"
+    },
+    {
+      "id": "82641194-46f0-428a-97e7-92638ca630a9",
+      "code": "PT",
+      "name": "Portugal",
+      "flag": "🇵🇹",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:48.064Z",
+      "updatedAt": "2026-05-30T07:57:52.938Z"
+    },
+    {
+      "id": "e517cb75-08a4-4bfc-b0e9-2957843f11c7",
+      "code": "NL",
+      "name": "Netherlands",
+      "flag": "🇳🇱",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:48.506Z",
+      "updatedAt": "2026-05-30T07:57:53.246Z"
+    },
+    {
+      "id": "c5904d3a-8e34-4553-9ee9-33dcd15ff9aa",
+      "code": "GR",
+      "name": "Greece",
+      "flag": "🇬🇷",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:48.945Z",
+      "updatedAt": "2026-05-30T07:57:53.407Z"
+    },
+    {
+      "id": "8365ad0a-52fe-4f11-9e1f-a1feb0d5923a",
+      "code": "AT",
+      "name": "Austria",
+      "flag": "🇦🇹",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:51.191Z",
+      "updatedAt": "2026-05-30T07:57:53.571Z"
+    },
+    {
+      "id": "61c21812-8e3d-4642-8d4f-90750035e20a",
+      "code": "CH",
+      "name": "Switzerland",
+      "flag": "🇨🇭",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:52.569Z",
+      "updatedAt": "2026-05-30T07:57:53.737Z"
+    },
+    {
+      "id": "b7f39d47-c978-4414-84d0-203b92ccf8b7",
+      "code": "TR",
+      "name": "Turkey",
+      "flag": "🇹🇷",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:54.620Z",
+      "updatedAt": "2026-05-30T07:57:54.047Z"
+    },
+    {
+      "id": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "code": "US",
+      "name": "United States",
+      "flag": "🇺🇸",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "createdAt": "2026-05-30T07:47:55.847Z",
+      "updatedAt": "2026-05-30T07:57:54.367Z"
+    },
+    {
+      "id": "a6145670-bbab-47be-822a-e5c3bb3ae382",
+      "code": "CA",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "createdAt": "2026-05-30T07:47:56.152Z",
+      "updatedAt": "2026-05-30T07:57:55.104Z"
+    },
+    {
+      "id": "d2de29b3-8763-43d9-ab52-966561474963",
+      "code": "MX",
+      "name": "Mexico",
+      "flag": "🇲🇽",
+      "regionId": "a9f834b1-8a3b-4542-afe1-8c7670c42050",
+      "createdAt": "2026-05-30T07:47:56.509Z",
+      "updatedAt": "2026-05-30T07:57:55.326Z"
+    },
+    {
+      "id": "35f7cebd-dbd7-4227-bf7d-b3527f47f372",
+      "code": "BR",
+      "name": "Brazil",
+      "flag": "🇧🇷",
+      "regionId": "55104278-ac61-40dc-8135-13e59ce51051",
+      "createdAt": "2026-05-30T07:47:57.566Z",
+      "updatedAt": "2026-05-30T07:57:55.985Z"
+    },
+    {
+      "id": "f70601d4-dfba-4bf7-a1ff-3eb462e8ab16",
+      "code": "AR",
+      "name": "Argentina",
+      "flag": "🇦🇷",
+      "regionId": "55104278-ac61-40dc-8135-13e59ce51051",
+      "createdAt": "2026-05-30T07:47:57.761Z",
+      "updatedAt": "2026-05-30T07:57:56.287Z"
+    },
+    {
+      "id": "a64ccdc2-4143-437a-ad93-9403a23411b9",
+      "code": "CL",
+      "name": "Chile",
+      "flag": "🇨🇱",
+      "regionId": "55104278-ac61-40dc-8135-13e59ce51051",
+      "createdAt": "2026-05-30T07:47:58.000Z",
+      "updatedAt": "2026-05-30T07:57:56.464Z"
+    },
+    {
+      "id": "11820440-5d31-4e17-9a50-94156524ca8a",
+      "code": "CO",
+      "name": "Colombia",
+      "flag": "🇨🇴",
+      "regionId": "55104278-ac61-40dc-8135-13e59ce51051",
+      "createdAt": "2026-05-30T07:47:58.306Z",
+      "updatedAt": "2026-05-30T07:57:57.126Z"
+    },
+    {
+      "id": "ceb6c8d6-64ef-4b67-a56d-9b746d5be53a",
+      "code": "PE",
+      "name": "Peru",
+      "flag": "🇵🇪",
+      "regionId": "55104278-ac61-40dc-8135-13e59ce51051",
+      "createdAt": "2026-05-30T07:47:58.921Z",
+      "updatedAt": "2026-05-30T07:57:57.860Z"
+    },
+    {
+      "id": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "code": "AE",
+      "name": "United Arab Emirates",
+      "flag": "🇦🇪",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "createdAt": "2026-05-30T07:47:59.230Z",
+      "updatedAt": "2026-05-30T07:57:58.078Z"
+    },
+    {
+      "id": "9b6cadea-4629-4b88-8b86-2fd560775851",
+      "code": "SA",
+      "name": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "createdAt": "2026-05-30T07:47:59.533Z",
+      "updatedAt": "2026-05-30T07:57:58.474Z"
+    },
+    {
+      "id": "1e578681-0fd5-477e-b84a-2c9957dd079b",
+      "code": "IL",
+      "name": "Israel",
+      "flag": "🇮🇱",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "createdAt": "2026-05-30T07:47:59.838Z",
+      "updatedAt": "2026-05-30T07:57:58.688Z"
+    },
+    {
+      "id": "ad89a3d6-8809-4d18-a8de-c06f11f8a2ca",
+      "code": "QA",
+      "name": "Qatar",
+      "flag": "🇶🇦",
+      "regionId": "b9f92e07-187f-4e39-a66e-b9f166b2ea75",
+      "createdAt": "2026-05-30T07:48:00.149Z",
+      "updatedAt": "2026-05-30T07:57:58.855Z"
+    },
+    {
+      "id": "cf99925e-b64d-4909-90eb-60d69caa465d",
+      "code": "EG",
+      "name": "Egypt",
+      "flag": "🇪🇬",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "createdAt": "2026-05-30T07:48:00.550Z",
+      "updatedAt": "2026-05-30T07:57:59.014Z"
+    },
+    {
+      "id": "f20fde7d-67c2-4272-a1d9-449fb39c8a68",
+      "code": "ZA",
+      "name": "South Africa",
+      "flag": "🇿🇦",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "createdAt": "2026-05-30T07:48:01.375Z",
+      "updatedAt": "2026-05-30T07:57:59.711Z"
+    },
+    {
+      "id": "f7dda5b9-fa6e-49aa-9ee3-0f7c018a45dd",
+      "code": "MA",
+      "name": "Morocco",
+      "flag": "🇲🇦",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "createdAt": "2026-05-30T07:48:01.682Z",
+      "updatedAt": "2026-05-30T07:57:59.967Z"
+    },
+    {
+      "id": "a0ae7986-1577-4039-8efd-6030d97774e9",
+      "code": "KE",
+      "name": "Kenya",
+      "flag": "🇰🇪",
+      "regionId": "750fa481-d243-4068-98af-ff8eb60fbe71",
+      "createdAt": "2026-05-30T07:48:01.989Z",
+      "updatedAt": "2026-05-30T07:58:00.769Z"
+    },
+    {
+      "id": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "code": "AU",
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "createdAt": "2026-05-30T07:48:04.382Z",
+      "updatedAt": "2026-05-30T07:58:01.569Z"
+    },
+    {
+      "id": "1d523da1-e82b-498d-a23b-807a7f447cfa",
+      "code": "NZ",
+      "name": "New Zealand",
+      "flag": "🇳🇿",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "createdAt": "2026-05-30T07:48:04.606Z",
+      "updatedAt": "2026-05-30T07:58:01.888Z"
+    },
+    {
+      "id": "b8562713-e28d-4f17-89c7-1b67a54ed695",
+      "code": "FJ",
+      "name": "Fiji",
+      "flag": "🇫🇯",
+      "regionId": "60d82e7e-a011-415a-8280-c04f9687abd1",
+      "createdAt": "2026-05-30T07:48:04.772Z",
+      "updatedAt": "2026-05-30T07:58:02.214Z"
+    },
+    {
+      "id": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "code": "JP",
+      "name": "Japan",
+      "flag": "🇯🇵",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:37.976Z",
+      "updatedAt": "2026-05-30T07:57:46.565Z"
+    },
+    {
+      "id": "1e756c0e-dd0c-41a9-b945-87ca0765b501",
+      "code": "KR",
+      "name": "South Korea",
+      "flag": "🇰🇷",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:38.497Z",
+      "updatedAt": "2026-05-30T07:57:47.487Z"
+    },
+    {
+      "id": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "code": "TH",
+      "name": "Thailand",
+      "flag": "🇹🇭",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:38.745Z",
+      "updatedAt": "2026-05-30T07:57:47.649Z"
+    },
+    {
+      "id": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "code": "IN",
+      "name": "India",
+      "flag": "🇮🇳",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:39.066Z",
+      "updatedAt": "2026-05-30T07:57:47.823Z"
+    },
+    {
+      "id": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "code": "SG",
+      "name": "Singapore",
+      "flag": "🇸🇬",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:39.671Z",
+      "updatedAt": "2026-05-30T07:57:48.129Z"
+    },
+    {
+      "id": "16dc7978-7e62-49e0-a7b1-3bfefbb5d181",
+      "code": "MY",
+      "name": "Malaysia",
+      "flag": "🇲🇾",
+      "regionId": "fe7cf6dd-7cb7-4867-9e5b-73716efed727",
+      "createdAt": "2026-05-30T07:47:41.204Z",
+      "updatedAt": "2026-05-30T07:57:48.453Z"
+    },
+    {
+      "id": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "code": "GB",
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:44.918Z",
+      "updatedAt": "2026-05-30T07:57:51.328Z"
+    },
+    {
+      "id": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "code": "FR",
+      "name": "France",
+      "flag": "🇫🇷",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:45.349Z",
+      "updatedAt": "2026-05-30T07:57:51.513Z"
+    },
+    {
+      "id": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "code": "DE",
+      "name": "Germany",
+      "flag": "🇩🇪",
+      "regionId": "a3aa02cb-81ac-463c-afb0-951cb9f45ad0",
+      "createdAt": "2026-05-30T07:47:45.785Z",
+      "updatedAt": "2026-05-30T07:57:51.716Z"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "a62d90a2-394d-4b8c-8f71-9aa16c268913",
+      "planId": "c85b34dc-db55-4258-b212-5efd2a73dd19",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T07:58:36.159Z"
+    },
+    {
+      "id": "ea379a7b-b653-4349-ae3a-e11db8f2a10f",
+      "planId": "2c94e7a8-409c-49a8-9892-7ef44fcef338",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T07:58:38.883Z"
+    },
+    {
+      "id": "a20ca889-4560-4647-8df3-2d5552ce23a7",
+      "planId": "5b87fff9-02ee-42a6-9240-914b0858c7d6",
+      "countryId": "1e756c0e-dd0c-41a9-b945-87ca0765b501",
+      "createdAt": "2026-05-30T07:58:41.249Z"
+    },
+    {
+      "id": "89979c20-e3de-4a7b-92cf-623c59b98768",
+      "planId": "46977ee7-7b96-4509-b89d-b3a5765907a2",
+      "countryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "createdAt": "2026-05-30T07:58:43.329Z"
+    },
+    {
+      "id": "3f26fa19-bc45-42c7-abb0-68b7e5dbd61f",
+      "planId": "31136479-cc3e-48d0-a9cb-2691804d3c3f",
+      "countryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "createdAt": "2026-05-30T07:58:44.448Z"
+    },
+    {
+      "id": "97076b0c-d24f-47a2-8b53-06a0a375836d",
+      "planId": "c412ced4-d8fd-4e09-949c-4432c8d0bbc2",
+      "countryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "createdAt": "2026-05-30T07:58:46.048Z"
+    },
+    {
+      "id": "0e547b60-8084-45d4-a9cf-e56eef8ee442",
+      "planId": "10d58ade-ab9b-4dfb-b4e5-4a007588cf02",
+      "countryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "createdAt": "2026-05-30T07:58:48.450Z"
+    },
+    {
+      "id": "debd1bba-278d-4135-b77e-b95fbeb93e6c",
+      "planId": "2ff04af7-5ce9-4f9d-b5de-b3591c977a30",
+      "countryId": "16dc7978-7e62-49e0-a7b1-3bfefbb5d181",
+      "createdAt": "2026-05-30T07:58:50.933Z"
+    },
+    {
+      "id": "6df8c698-eb91-45e8-b2fd-0633ec40a484",
+      "planId": "7aa2a73e-5104-49d0-92c3-5b1a478c4960",
+      "countryId": "48510453-0699-4b0b-b3a3-5ce88635c6a7",
+      "createdAt": "2026-05-30T07:58:55.682Z"
+    },
+    {
+      "id": "d39eb58b-62fb-4cf1-9d68-994701844e43",
+      "planId": "a76d47aa-55dc-46f5-901b-8532124d0fad",
+      "countryId": "6b7d154a-b6e3-483f-83f5-af107b7eb8f2",
+      "createdAt": "2026-05-30T07:58:56.837Z"
+    },
+    {
+      "id": "41081cf8-7cde-4204-baec-ffe053808cd2",
+      "planId": "70cf9c00-4676-41dc-95c6-457711b99545",
+      "countryId": "fe7a813e-2581-4f1e-920a-6f949117c2d5",
+      "createdAt": "2026-05-30T07:58:58.011Z"
+    },
+    {
+      "id": "6caf0cc3-d79e-4a75-81f2-bbb305061f21",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "009dd657-7a01-4ffa-88b7-d34f566440b3",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "1e756c0e-dd0c-41a9-b945-87ca0765b501",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "c6bf6469-19d6-4abd-87f8-ee14655c42f4",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "be2d7ba6-4dbd-402f-9659-8be35ca84515",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "ae3ac080-c55b-42bf-a7de-03668685b51e",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "16dc7978-7e62-49e0-a7b1-3bfefbb5d181",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "4f277716-ea8a-41a3-9c21-786d4df20968",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "48510453-0699-4b0b-b3a3-5ce88635c6a7",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "85d2c6b9-6648-4190-811f-802c71e9eb23",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "6b7d154a-b6e3-483f-83f5-af107b7eb8f2",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "65b3d932-663a-4173-b023-a1038313d60f",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "fe7a813e-2581-4f1e-920a-6f949117c2d5",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "b845a0cb-0fcc-4e97-985d-02ef7f9249ab",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "6a1ce53d-cfeb-4a09-a333-ad253baa8a6f",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "86dd49d2-84da-4271-a5f4-d6c16ff1d806",
+      "planId": "1fd3f50f-8558-40e6-9116-b5d5d400270d",
+      "countryId": "6c4f1ef5-a091-4e3a-893d-a34997619558",
+      "createdAt": "2026-05-30T07:58:59.340Z"
+    },
+    {
+      "id": "d2b3042e-6071-4145-94cb-f77dc6a0eb4e",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "89881b8e-1a28-468d-a728-26b146815f5b",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "b767a14e-31d7-4117-adcd-f1416e185f13",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "54034832-fc30-47db-b2b1-42c87a53de62",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "08e53c24-9661-491f-9856-b4125adcfd88",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "92259e62-78f3-44c4-94ba-3771fcb63b77",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "72161f9d-e598-4034-8a77-e05aa795a1db",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "3422c46d-10f9-45d3-b2d9-1ec5c6e0bdc2",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "e517cb75-08a4-4bfc-b0e9-2957843f11c7",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "2badd9ea-b830-4e8c-8341-f1d396f5b346",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "82641194-46f0-428a-97e7-92638ca630a9",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "bcc93518-a9c3-448a-be5c-131e5d82e71e",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "c5904d3a-8e34-4553-9ee9-33dcd15ff9aa",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "4089dee9-5e1e-4a32-8382-8a13d4e7ca35",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "8365ad0a-52fe-4f11-9e1f-a1feb0d5923a",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "a1dde86f-0d6e-4e56-88e7-22b41fbaa58c",
+      "planId": "0045f3f4-e2ba-41c9-b381-707a675d824c",
+      "countryId": "61c21812-8e3d-4642-8d4f-90750035e20a",
+      "createdAt": "2026-05-30T07:59:09.089Z"
+    },
+    {
+      "id": "e73c4d98-dc07-4667-b2a4-c905cb0a8034",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "b014343b-cffa-49fd-82e0-215bdf6640db",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "ccafc0f8-f9c3-44ef-a888-4121603bd6ba",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "9bc20ba2-602f-4f55-8cf1-63248715ba1e",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "08e53c24-9661-491f-9856-b4125adcfd88",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "a8d6a04c-46c8-40aa-8cd9-9b935fa79f52",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "72161f9d-e598-4034-8a77-e05aa795a1db",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "c502721a-2bd9-4e99-b7ae-ce1ba49b7407",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "e517cb75-08a4-4bfc-b0e9-2957843f11c7",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "fb31c805-a326-4185-be16-9c399fcd0af8",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "82641194-46f0-428a-97e7-92638ca630a9",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "831f7f03-0035-4933-938c-74d395c7a469",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "c5904d3a-8e34-4553-9ee9-33dcd15ff9aa",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "a42d7ee6-e25e-49c8-b54b-4dc046e47959",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "8365ad0a-52fe-4f11-9e1f-a1feb0d5923a",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "ff16c671-5546-4ce9-b53b-0b2979427f4a",
+      "planId": "208d788b-0f86-4f32-98e9-abc115ff229e",
+      "countryId": "61c21812-8e3d-4642-8d4f-90750035e20a",
+      "createdAt": "2026-05-30T07:59:15.969Z"
+    },
+    {
+      "id": "93753174-f4e6-4334-ab11-f9c7c6e8e4ef",
+      "planId": "febd6c90-3757-44c9-9beb-a341f3f42fd5",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T07:59:20.761Z"
+    },
+    {
+      "id": "9947ca18-91ac-4c3b-93e6-1a079ea180a3",
+      "planId": "8a7c5b29-e441-475f-894f-1ff6d603c5e4",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T07:59:21.891Z"
+    },
+    {
+      "id": "3e660af2-08be-409f-b2c8-223f30d24b17",
+      "planId": "85f158ef-4bf2-4cdc-b663-d2eae8dc0fe6",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T07:59:23.812Z"
+    },
+    {
+      "id": "7d5ad212-f56b-414e-b4c5-bda78ae03b26",
+      "planId": "7d0ceee4-4c57-401b-b01b-33c91145c93f",
+      "countryId": "08e53c24-9661-491f-9856-b4125adcfd88",
+      "createdAt": "2026-05-30T07:59:26.388Z"
+    },
+    {
+      "id": "c04965f2-bd69-495a-b8a3-3c4d8f9ed253",
+      "planId": "d6efcd91-831d-466d-adc1-23e18cf4cb5f",
+      "countryId": "72161f9d-e598-4034-8a77-e05aa795a1db",
+      "createdAt": "2026-05-30T07:59:27.647Z"
+    },
+    {
+      "id": "5a402b0d-4181-4133-8aef-f21cd0fcb12d",
+      "planId": "82ad88de-6346-458c-8bc5-5ea24fee0b07",
+      "countryId": "b7f39d47-c978-4414-84d0-203b92ccf8b7",
+      "createdAt": "2026-05-30T07:59:29.250Z"
+    },
+    {
+      "id": "0c1f487d-14f9-4a8b-9e2b-a648d2452d67",
+      "planId": "af69cd5b-0157-4e23-a0c7-8035ccdc7bf7",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T07:59:30.707Z"
+    },
+    {
+      "id": "4175e8a8-bf5e-421e-8f74-9480dfc9689e",
+      "planId": "181d5d87-7da8-475a-bcfb-5e45864b109e",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T07:59:32.450Z"
+    },
+    {
+      "id": "47d44653-1280-43f6-97ca-75339db7817b",
+      "planId": "4ece9414-2cbe-4118-8051-e0acbe13d7ad",
+      "countryId": "a6145670-bbab-47be-822a-e5c3bb3ae382",
+      "createdAt": "2026-05-30T07:59:34.589Z"
+    },
+    {
+      "id": "a9085cd9-8d49-4ea3-a418-782cd1e48e2b",
+      "planId": "e92fc1fe-d5f9-4010-bf2e-736e68851a27",
+      "countryId": "d2de29b3-8763-43d9-ab52-966561474963",
+      "createdAt": "2026-05-30T07:59:37.411Z"
+    },
+    {
+      "id": "29974fce-8f5c-454b-928d-33264c783936",
+      "planId": "bd3b44fb-743d-4e26-8182-694e11088018",
+      "countryId": "35f7cebd-dbd7-4227-bf7d-b3527f47f372",
+      "createdAt": "2026-05-30T07:59:39.169Z"
+    },
+    {
+      "id": "58c73d0b-6100-4689-ac41-7f0b544e3b9e",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "3dd57160-cb2a-4f86-93e3-411d6a0e45d5",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "a6145670-bbab-47be-822a-e5c3bb3ae382",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "b904c575-8831-4a40-add1-7ca8a67f1a2e",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "d2de29b3-8763-43d9-ab52-966561474963",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "6f80bf5c-1d71-4b4d-9cb6-d5ac2f384bb1",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "35f7cebd-dbd7-4227-bf7d-b3527f47f372",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "bb89aa70-e3f2-4525-901e-e11d343f4a38",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "f70601d4-dfba-4bf7-a1ff-3eb462e8ab16",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "1c5d5cd7-05bf-402e-aa80-81aa24f401e8",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "a64ccdc2-4143-437a-ad93-9403a23411b9",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "f7b0c3fe-e1ad-477b-8c79-69bf9d734146",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "11820440-5d31-4e17-9a50-94156524ca8a",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "3ec99030-12c8-4ddc-bd68-085ee21ec0d0",
+      "planId": "d0bf4dcc-77cd-4df1-b64a-1a5f32fc9517",
+      "countryId": "ceb6c8d6-64ef-4b67-a56d-9b746d5be53a",
+      "createdAt": "2026-05-30T07:59:44.771Z"
+    },
+    {
+      "id": "d7dce412-4396-4d48-8b07-1dd2c9a1e4db",
+      "planId": "d69269fc-6673-4740-8ca3-874149deaf41",
+      "countryId": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "createdAt": "2026-05-30T07:59:49.733Z"
+    },
+    {
+      "id": "d28ef09b-f868-478a-8a8d-419b0fae9d40",
+      "planId": "e75f2d3b-5cf7-4ab6-8124-e633309ca70f",
+      "countryId": "9b6cadea-4629-4b88-8b86-2fd560775851",
+      "createdAt": "2026-05-30T07:59:51.494Z"
+    },
+    {
+      "id": "03bd0997-b30b-4539-bfab-b3ff899c88ba",
+      "planId": "0be43ac2-8211-4d72-9604-f87174c7b6d2",
+      "countryId": "1e578681-0fd5-477e-b84a-2c9957dd079b",
+      "createdAt": "2026-05-30T07:59:52.930Z"
+    },
+    {
+      "id": "0c1a750a-7868-487b-a43c-df21c40c0c53",
+      "planId": "72d246c8-8278-43e3-ab00-2b6c02747798",
+      "countryId": "ad89a3d6-8809-4d18-a8de-c06f11f8a2ca",
+      "createdAt": "2026-05-30T07:59:56.130Z"
+    },
+    {
+      "id": "eb234583-4671-4d6b-a77d-388b7c9ad447",
+      "planId": "89a98999-29ba-4447-92c3-72ad6a664905",
+      "countryId": "cf99925e-b64d-4909-90eb-60d69caa465d",
+      "createdAt": "2026-05-30T08:00:06.050Z"
+    },
+    {
+      "id": "0c16a33e-275b-44c0-baa0-168404527ae3",
+      "planId": "d52927df-ffae-4590-8266-ed864d6e1d11",
+      "countryId": "f20fde7d-67c2-4272-a1d9-449fb39c8a68",
+      "createdAt": "2026-05-30T08:00:07.650Z"
+    },
+    {
+      "id": "ecfeda49-b717-4230-b689-4b7523b38e88",
+      "planId": "b4fb7a00-a7bc-402d-855b-80822ef1292a",
+      "countryId": "f7dda5b9-fa6e-49aa-9ee3-0f7c018a45dd",
+      "createdAt": "2026-05-30T08:00:09.753Z"
+    },
+    {
+      "id": "0941d38a-ed81-4af4-afd4-c83d3c4e3a92",
+      "planId": "529c9bfe-0b24-44da-a79e-dafbe18cf98d",
+      "countryId": "a0ae7986-1577-4039-8efd-6030d97774e9",
+      "createdAt": "2026-05-30T08:00:11.810Z"
+    },
+    {
+      "id": "d5971dc6-9259-4bad-8358-36e60a812b80",
+      "planId": "becb9051-c3c2-4b25-adef-604e15dd61b9",
+      "countryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "createdAt": "2026-05-30T08:00:15.811Z"
+    },
+    {
+      "id": "573503ad-64cc-43ce-9776-cc557244f252",
+      "planId": "101743d2-0e0b-4d55-86e3-9069e162e961",
+      "countryId": "1d523da1-e82b-498d-a23b-807a7f447cfa",
+      "createdAt": "2026-05-30T08:00:17.299Z"
+    },
+    {
+      "id": "c8788bdf-6c87-4cfc-93b1-8b8539d11ba4",
+      "planId": "18d86d8e-7adb-42a7-bdfb-668cac61daf0",
+      "countryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "createdAt": "2026-05-30T08:00:18.531Z"
+    },
+    {
+      "id": "92c3e0f7-6b53-44de-aa04-110d01328584",
+      "planId": "18d86d8e-7adb-42a7-bdfb-668cac61daf0",
+      "countryId": "1d523da1-e82b-498d-a23b-807a7f447cfa",
+      "createdAt": "2026-05-30T08:00:18.531Z"
+    },
+    {
+      "id": "c80cb53d-7694-4ff5-89e5-12fdba6e0218",
+      "planId": "18d86d8e-7adb-42a7-bdfb-668cac61daf0",
+      "countryId": "b8562713-e28d-4f17-89c7-1b67a54ed695",
+      "createdAt": "2026-05-30T08:00:18.531Z"
+    },
+    {
+      "id": "801edf75-4179-4eda-b50c-c9983b0e28e4",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "257a338d-ae32-439b-903d-3e3387b145d6",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "e024a568-6080-4645-9b21-1d2e5637c36f",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "f2262d87-ef06-41d5-800d-b494925be133",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "822353a0-78d8-4a9e-b940-297a7c4a027e",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "cde4b31b-fbc0-4416-bc88-a20d128dc471",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "144006bb-6ae9-4b6c-8910-ecd9c08a40d2",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "8be18aef-6aba-48e2-8a8c-04392aebe84c",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "b4289e40-2057-4236-8894-14ca74386ca8",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "5e8a1fc9-0ff5-44d2-9ce7-b6babeb0267d",
+      "planId": "07823469-8522-4fd5-becf-7c82fd1df75c",
+      "countryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "createdAt": "2026-05-30T08:00:20.453Z"
+    },
+    {
+      "id": "ce8b7ffe-e143-44c4-9968-8342015b9c68",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "6b4c6172-63a5-4b2c-bca7-7c9a1b11ed88",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "c1470aca-f1a8-42a8-9100-f5624a25bce7",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "6a03343b-1837-456b-91a3-ddd94047121f",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "f9bc507a-0dae-4ba0-ab6b-3aadf93215c1",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "d06e2de4-960d-44fa-8d3b-7425c2c7ab97",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "dabb73d3-3867-440b-8dfb-3a423cd90969",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "17cb69b3-e86a-45cc-9e24-190c8b9dd44f",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "69d04004-ebff-453f-b547-f50f4e598673",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "d57bd3b5-90c4-4b97-bb4a-ed4d6574c21b",
+      "planId": "1e9904a0-9faf-4038-9715-b11c2658d3a9",
+      "countryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "createdAt": "2026-05-30T08:00:25.412Z"
+    },
+    {
+      "id": "2ae25986-83bd-437e-87d7-b82e8a7771b1",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "f088e34f-16e0-4782-9663-01e0f15a6af8",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "552d1122-bb04-4988-a4ff-052b5d87035c",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "6e4c3cc2-163e-4cfa-a964-e08d6ebc7cc3",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "526d6f22-d0cc-4822-8965-25a254ac30bd",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "0469ed5d-05f8-4bc5-bbc1-79bd08df74f8",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "67332843-a8f2-401d-87c7-ad490b61f097",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "c7d77b19-b052-4181-a120-b47712f55d49",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "5d9d3296-4e34-44ec-9d58-35bf291c0a73",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "828bba1f-9fc9-4c6f-b498-b9aa7b3c13e6",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "ca1ff8d6-2b87-49b7-8985-200652fccedf",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "2ff693c2-bc70-4f74-b3ff-73f26048de24",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "095dec49-0ee0-4f4d-9ffa-3368fdb6c23e",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "45e6ca1f-85f5-43a5-afcc-2b0e504344ca",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "61dbcc14-c347-488b-a709-d3130c064ed5",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "5e15ebc9-002f-483e-8921-742135b8daa9",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "22c06570-b8ab-463f-92d9-56006888645e",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "4e606809-b433-4823-add1-49d3d46a80d7",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    },
+    {
+      "id": "1924c5ee-ffde-43e9-b5b6-253b8c02b03b",
+      "planId": "af0a6e03-61b5-4fee-a4e3-bdedc9e551ab",
+      "countryId": "05fa164e-1d3c-491a-be6e-2136be8b1a58",
+      "createdAt": "2026-05-30T08:00:31.659Z"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "958fd415-89a2-4d38-aa94-a18514f16c31",
+      "planId": "c85b34dc-db55-4258-b212-5efd2a73dd19",
+      "fixedPriceUsd": "12.99",
+      "reason": "Seasonal pricing — Japan 5GB hero plan",
+      "isActive": true,
+      "createdAt": "2026-05-30T08:32:22.441Z",
+      "updatedAt": "2026-05-30T08:38:01.038Z"
+    }
+  ]
+}

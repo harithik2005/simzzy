@@ -1,0 +1,1045 @@
+// ============================================================================
+// Simzzy — Prisma Schema (v1)
+// Global eSIM marketplace. PostgreSQL (Supabase) + Prisma + Next.js 14.
+//
+// Conventions:
+//  - Model names PascalCase; tables mapped to approved snake_case names via @@map.
+//  - Money stored as Decimal in USD base (@db.Decimal(12,4)); FX rates Decimal(18,8).
+//  - JSON columns are jsonb (Prisma default on PostgreSQL).
+//  - createdAt / updatedAt on mutable models; append-only tables use createdAt only.
+//  - Soft delete via deletedAt on admin-managed catalog/content + users.
+//  - Provider/payment secrets are NEVER stored — only a reference (credentialRef).
+// ============================================================================
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // Supabase: pooled connection for app, direct connection for migrations.
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ───────────────────────────── Enums ──────────────────────────────────────
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum OrderStatus {
+  PENDING
+  PAYMENT_PROCESSING
+  PAYMENT_SUCCESS
+  ORDER_SUBMITTED
+  QR_PENDING
+  QR_RECEIVED
+  DELIVERED
+  ACTIVATED
+  FAILED
+  CANCELLED // user- or admin-initiated cancellation before fulfilment
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum RefundStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum ProviderStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum HealthStatus {
+  HEALTHY
+  WARNING
+  OFFLINE
+}
+
+// ── Additional enums required by the architecture ──
+
+enum DeviceOS {
+  IOS
+  ANDROID
+  OTHER
+}
+
+enum DiscountType {
+  FIXED
+  PERCENT
+}
+
+enum AppliedRuleType {
+  OVERRIDE
+  COUNTRY
+  DURATION
+  GLOBAL
+}
+
+enum EsimStatus {
+  PENDING
+  PROVISIONED
+  DELIVERED
+  ACTIVATED
+  EXPIRED
+  FAILED
+}
+
+enum ProviderOrderStatus {
+  PENDING
+  SUBMITTED
+  SUCCESS
+  FAILED
+}
+
+enum SyncStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+enum ActorType {
+  SYSTEM
+  USER
+  ADMIN
+  PROVIDER
+}
+
+enum EmailStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+  BOUNCED
+}
+
+enum SettingType {
+  STRING
+  NUMBER
+  BOOLEAN
+  JSON
+}
+
+// ════════════════════════ Identity & Access ═══════════════════════════════
+
+model User {
+  id            String     @id @default(uuid())
+  name          String?
+  email         String     @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String? // credentials login; null for OAuth-only
+  role          Role       @default(USER)
+  status        UserStatus @default(ACTIVE)
+
+  // Profile (added Phase 4E — Customer Platform)
+  phone       String?
+  countryCode String? // ISO 3166-1 alpha-2; falls back to currency detection
+  timezone    String? // IANA tz name, e.g. "Asia/Kolkata"
+
+  lastLoginAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  // NextAuth
+  accounts Account[]
+  sessions Session[]
+
+  // Account preferences (1:1 — lazily created on first read)
+  preferences UserPreference?
+
+  // Commerce
+  orders               Order[]
+  esims                Esim[]
+  promotionRedemptions PromotionRedemption[]
+  refundsRequested     Refund[]
+
+  // Content & support
+  reviews         Review[]
+  ticketsOpened   SupportTicket[]  @relation("TicketOwner")
+  ticketsAssigned SupportTicket[]  @relation("TicketAssignee")
+  supportMessages SupportMessage[]
+  contactMessages ContactMessage[]
+
+  // Admin / audit
+  orderStatusChanges OrderStatusHistory[]
+  auditLogs          AuditLog[]
+  analyticsEvents    AnalyticsEvent[]
+  pricingGlobalRules PricingGlobalRule[]
+  siteSettings       SiteSetting[]
+
+  @@index([role])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+/// Per-user notification + marketing toggles. Created lazily on first read so
+/// every user has a row by the time profile/settings render. Kept as a separate
+/// table (not JSON on User) so we can index `marketingEmail = true` for batch
+/// campaign queries without scanning every JSON blob.
+model UserPreference {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  emailNotifications Boolean  @default(true)
+  orderUpdates       Boolean  @default(true)
+  expiryReminders    Boolean  @default(true)
+  marketingEmail     Boolean  @default(false)
+  smsNotifications   Boolean  @default(false)
+  preferredCurrency  String? // override for the IP-detected currency
+  preferredLanguage  String? // ISO 639-1, e.g. "en"
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([marketingEmail])
+  @@map("user_preferences")
+}
+
+model Account {
+  id                String   @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ════════════════════════════ eSIM Catalog ════════════════════════════════
+
+model EsimProvider {
+  id            String         @id @default(uuid())
+  slug          String         @unique // tsim, joytel, airalo
+  name          String
+  status        ProviderStatus @default(ACTIVE)
+  credentialRef String? // reference to secret manager / env key — NEVER the secret
+  syncConfig    Json?
+  lastSyncedAt  DateTime?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+
+  plans          Plan[]
+  providerOrders ProviderOrder[]
+  syncLogs       PlanSyncLog[]
+
+  @@index([status])
+  @@map("esim_providers")
+}
+
+model Region {
+  id        String   @id @default(uuid())
+  code      String   @unique // asia, europe, americas, ...
+  name      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  countries Country[]
+  plans     Plan[]
+
+  @@map("regions")
+}
+
+model Country {
+  id        String   @id @default(uuid())
+  code      String   @unique // ISO-3166 alpha-2
+  name      String
+  flag      String?
+  regionId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  region           Region               @relation(fields: [regionId], references: [id], onDelete: Restrict)
+  planDestinations PlanDestination[]
+  pricingRules     PricingCountryRule[]
+  plansAsPrimary   Plan[]               @relation("PlanPrimaryCountry")
+  networkCoverage  NetworkCoverage[]
+
+  @@index([regionId])
+  @@map("countries")
+}
+
+model Plan {
+  id                    String    @id @default(uuid())
+  slug                  String    @unique // globally-unique, URL-safe route key (e.g. japan-5gb-30days) — powers /plans/[slug]
+  providerId            String
+  esimId                String // provider plan code (e.g. TS-JP-5GB-30D); unique only per-provider
+  name                  String
+  regionId              String
+  primaryCountryId      String?
+  data                  String // "5GB"
+  fup                   String?
+  days                  Int
+  apn                   String?
+  network               String?
+  speed                 String?
+  costUsd               Decimal   @db.Decimal(12, 4)
+  cachedSellingPriceUsd Decimal?  @db.Decimal(12, 4)
+  popular               Boolean   @default(false)
+  badge                 String?
+  isActive              Boolean   @default(true)
+  raw                   Json? // original provider payload — schema-free future fields
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  deletedAt             DateTime?
+
+  provider       EsimProvider       @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  region         Region             @relation(fields: [regionId], references: [id], onDelete: Restrict)
+  primaryCountry Country?           @relation("PlanPrimaryCountry", fields: [primaryCountryId], references: [id], onDelete: SetNull)
+  destinations   PlanDestination[]
+  override       PlanPriceOverride?
+  orderItems     OrderItem[]
+  reviews        Review[]
+
+  @@unique([providerId, esimId])
+  @@index([esimId])
+  @@index([isActive, regionId])
+  @@index([cachedSellingPriceUsd])
+  @@index([days])
+  @@index([deletedAt])
+  @@map("plans")
+}
+
+model PlanDestination {
+  id        String   @id @default(uuid())
+  planId    String
+  countryId String
+  createdAt DateTime @default(now())
+
+  plan    Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  country Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, countryId])
+  @@index([countryId])
+  @@map("plan_destinations")
+}
+
+/// Per-bundle, per-country network coverage (Phase 4G.5 catalog import).
+/// `bundle` matches Plan.raw.destination / the supplier "Destination(s)" label,
+/// so many plans of the same bundle share one set of coverage rows (no
+/// per-plan duplication). Powers the expandable "network details" UI (networks
+/// + 3G/4G/5G) on the browse / daily pages. Additive table — does not touch
+/// users, orders, pricing, auth, or any protected data.
+model NetworkCoverage {
+  id          String   @id @default(uuid())
+  bundle      String // supplier Destination(s) / Regional Bundles label
+  countryId   String
+  countryName String // destination name exactly as supplied (may differ from Country.name)
+  isoCode     String
+  networkName String
+  apn         String?
+  has3G       Boolean  @default(false)
+  has4G       Boolean  @default(false)
+  has5G       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  country Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([bundle, isoCode, networkName])
+  @@index([bundle])
+  @@index([countryId])
+  @@map("network_coverage")
+}
+
+model PlanSyncLog {
+  id            String     @id @default(uuid())
+  providerId    String
+  status        SyncStatus @default(RUNNING)
+  plansImported Int        @default(0)
+  plansUpdated  Int        @default(0)
+  plansFailed   Int        @default(0)
+  error         String?    @db.Text
+  startedAt     DateTime   @default(now())
+  finishedAt    DateTime?
+  createdAt     DateTime   @default(now())
+
+  provider EsimProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId, createdAt])
+  @@map("plan_sync_logs")
+}
+
+model Device {
+  id              String    @id @default(uuid())
+  brand           String
+  model           String
+  esimSupported   Boolean   @default(true)
+  os              DeviceOS  @default(OTHER)
+  releaseYear     Int?
+  metadata        Json?
+  installGuideUrl String?
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  @@unique([brand, model])
+  @@index([brand])
+  @@index([esimSupported])
+  @@map("devices")
+}
+
+// ═══════════════════════════════ Pricing ══════════════════════════════════
+// Fixed-dollar profit model only. Resolution priority: Override > Country >
+// Duration > Global. Profit is applied on Plan.costUsd; override is absolute.
+
+/// SINGLETON TABLE — intended to contain EXACTLY ONE row (id = 1).
+/// Admins UPDATE this single row to change the default global profit; they must
+/// NEVER INSERT additional rows. The `id @default(1)` + unique `singleton` guard
+/// make a second row impossible at the database level (a new insert defaults to
+/// the same values and collides). Seed this row (id = 1) during initial setup.
+model PricingGlobalRule {
+  id          Int      @id @default(1)
+  singleton   Boolean  @unique @default(true) // hard guard: blocks any second row
+  profitUsd   Decimal  @db.Decimal(12, 4)
+  isActive    Boolean  @default(true)
+  note        String?
+  updatedById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  updatedBy User? @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@map("pricing_global_rules")
+}
+
+model PricingCountryRule {
+  id        String   @id @default(uuid())
+  countryId String   @unique // one rule per country (toggle isActive)
+  profitUsd Decimal  @db.Decimal(12, 4)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  country Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@index([isActive])
+  @@map("pricing_country_rules")
+}
+
+model PricingDurationRule {
+  id        String   @id @default(uuid())
+  label     String // "1–3 Days"
+  minDays   Int
+  maxDays   Int? // null = open-ended (e.g. 30+)
+  profitUsd Decimal  @db.Decimal(12, 4)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([minDays, maxDays])
+  @@map("pricing_duration_rules")
+}
+
+model PlanPriceOverride {
+  id            String   @id @default(uuid())
+  planId        String   @unique // one override per plan
+  fixedPriceUsd Decimal  @db.Decimal(12, 4)
+  reason        String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@index([isActive])
+  @@map("plan_price_overrides")
+}
+
+// ═════════════════════════════ Promotions ═════════════════════════════════
+
+model Promotion {
+  id             String       @id @default(uuid())
+  code           String       @unique
+  description    String?
+  discountType   DiscountType
+  discountValue  Decimal      @db.Decimal(12, 4)
+  maxRedemptions Int? // null = unlimited
+  perUserLimit   Int?         @default(1)
+  timesRedeemed  Int          @default(0)
+  validFrom      DateTime?
+  validUntil     DateTime?
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+
+  redemptions PromotionRedemption[]
+  orders      Order[]
+
+  @@index([isActive, validUntil])
+  @@map("promotions")
+}
+
+model PromotionRedemption {
+  id          String   @id @default(uuid())
+  promotionId String
+  userId      String?
+  orderId     String?
+  createdAt   DateTime @default(now())
+
+  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  order     Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@unique([promotionId, userId])
+  @@index([promotionId])
+  @@index([orderId])
+  @@map("promotion_redemptions")
+}
+
+// ════════════════════════ Orders & Fulfillment ════════════════════════════
+
+model Order {
+  id            String      @id @default(uuid())
+  orderNumber   String      @unique
+  userId        String? // nullable — guest checkout
+  customerEmail String
+  customerName  String?
+  customerPhone String?
+  status        OrderStatus @default(PENDING)
+
+  // Currency snapshot (taken at checkout)
+  currency    String // local display currency code
+  fxRate      Decimal @db.Decimal(18, 8) // USD -> local at checkout
+  usdSubtotal Decimal @db.Decimal(12, 4)
+  usdDiscount Decimal @default(0) @db.Decimal(12, 4)
+  usdTotal    Decimal @db.Decimal(12, 4)
+  localTotal  Decimal @db.Decimal(14, 4)
+
+  promotionId String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  user                 User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+  promotion            Promotion?            @relation(fields: [promotionId], references: [id], onDelete: SetNull)
+  items                OrderItem[]
+  statusHistory        OrderStatusHistory[]
+  payments             Payment[]
+  refunds              Refund[]
+  supportTickets       SupportTicket[]
+  promotionRedemptions PromotionRedemption[]
+  analyticsEvents      AnalyticsEvent[]
+  emailLogs            EmailLog[]
+  reviews              Review[]
+
+  @@index([userId, createdAt])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id      String  @id @default(uuid())
+  orderId String
+  planId  String? // SetNull if a catalog plan is later removed
+
+  // Snapshot of the plan + resolved price at purchase time
+  planEsimId       String
+  planName         String
+  country          String?
+  region           String?
+  data             String
+  days             Int
+  apn              String?
+  network          String?
+  costUsd          Decimal         @db.Decimal(12, 4)
+  appliedRuleType  AppliedRuleType
+  appliedRuleLabel String?
+  profitUsd        Decimal         @db.Decimal(12, 4)
+  sellingPriceUsd  Decimal         @db.Decimal(12, 4)
+  quantity         Int             @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order         Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  plan          Plan?          @relation(fields: [planId], references: [id], onDelete: SetNull)
+  esim          Esim?
+  providerOrder ProviderOrder?
+
+  @@index([orderId])
+  @@index([planId])
+  @@index([country])
+  @@map("order_items")
+}
+
+model Esim {
+  id             String     @id @default(uuid())
+  orderItemId    String     @unique // 1:1 with order item
+  userId         String? // denormalized for fast "My eSIMs" lookups
+  iccid          String?    @unique
+  qrCodeUrl      String?
+  qrCodeData     String?    @db.Text
+  activationCode String?
+  smdpAddress    String?
+  apn            String?
+  status         EsimStatus @default(PENDING)
+  dataUsedMb     Int        @default(0)
+  dataTotalMb    Int?
+  activatedAt    DateTime?
+  expiresAt      DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  orderItem OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([status])
+  @@map("esims")
+}
+
+model OrderStatusHistory {
+  id         String       @id @default(uuid())
+  orderId    String
+  fromStatus OrderStatus?
+  toStatus   OrderStatus
+  actorId    String?
+  actorType  ActorType    @default(SYSTEM)
+  reason     String?
+  metadata   Json?
+  createdAt  DateTime     @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([orderId, createdAt])
+  @@map("order_status_history")
+}
+
+model ProviderOrder {
+  id               String              @id @default(uuid())
+  providerId       String
+  orderItemId      String?             @unique // 1:1 with order item
+  providerOrderRef String?
+  status           ProviderOrderStatus @default(PENDING)
+  requestPayload   Json?
+  responsePayload  Json?
+  attempts         Int                 @default(0)
+  lastError        String?             @db.Text
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  provider  EsimProvider @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  orderItem OrderItem?   @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+
+  @@index([providerId, status])
+  @@index([status])
+  @@map("provider_orders")
+}
+
+// ═══════════════════════════════ Payments ═════════════════════════════════
+
+model PaymentProvider {
+  id            String         @id @default(uuid())
+  slug          String         @unique // dummy, eximpe, stripe, paypal
+  name          String
+  status        ProviderStatus @default(ACTIVE)
+  credentialRef String? // reference to secret — NEVER the secret itself
+  config        Json?
+  isDefault     Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  payments Payment[]
+
+  @@index([status])
+  @@map("payment_providers")
+}
+
+model Payment {
+  id               String        @id @default(uuid())
+  orderId          String
+  providerId       String
+  gatewayPaymentId String?
+  amount           Decimal       @db.Decimal(14, 4)
+  currency         String
+  method           String?
+  status           PaymentStatus @default(PENDING)
+  failureReason    String?
+  paidAt           DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  order    Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  provider PaymentProvider @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  events   PaymentEvent[]
+  refunds  Refund[]
+
+  @@unique([providerId, gatewayPaymentId])
+  @@index([orderId])
+  @@index([providerId, status])
+  @@map("payments")
+}
+
+model PaymentEvent {
+  id                String   @id @default(uuid())
+  paymentId         String
+  providerEventId   String?
+  eventType         String
+  payload           Json // raw webhook payload
+  signatureVerified Boolean  @default(false)
+  receivedAt        DateTime @default(now())
+
+  payment Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@unique([paymentId, providerEventId])
+  @@index([paymentId])
+  @@index([receivedAt])
+  @@map("payment_events")
+}
+
+model Refund {
+  id              String       @id @default(uuid())
+  paymentId       String
+  orderId         String?
+  amount          Decimal      @db.Decimal(14, 4)
+  currency        String
+  reason          String?
+  status          RefundStatus @default(PENDING)
+  gatewayRefundId String?
+  requestedById   String?
+  processedAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  payment     Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  order       Order?  @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  requestedBy User?   @relation(fields: [requestedById], references: [id], onDelete: SetNull)
+
+  @@index([paymentId])
+  @@index([status])
+  @@map("refunds")
+}
+
+// ═══════════════════════════════ Currency ═════════════════════════════════
+
+model Currency {
+  code      String   @id // 'USD', 'INR', ...
+  name      String
+  symbol    String
+  decimals  Int      @default(2)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rates ExchangeRate[] @relation("QuoteCurrency")
+
+  @@map("currencies")
+}
+
+model ExchangeRate {
+  id        String   @id @default(uuid())
+  baseCode  String   @default("USD")
+  quoteCode String
+  rate      Decimal  @db.Decimal(18, 8)
+  source    String?
+  fetchedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  quoteCurrency Currency @relation("QuoteCurrency", fields: [quoteCode], references: [code], onDelete: Cascade)
+
+  @@unique([baseCode, quoteCode, fetchedAt])
+  @@index([quoteCode, fetchedAt])
+  @@map("exchange_rates")
+}
+
+// ════════════════════════════ Support & Content ═══════════════════════════
+
+model Faq {
+  id          String    @id @default(uuid())
+  category    String
+  question    String
+  answer      String    @db.Text
+  isPublished Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  @@index([category])
+  @@index([isPublished])
+  @@map("faqs")
+}
+
+model Review {
+  id         String       @id @default(uuid())
+  userId     String?
+  planId     String?
+  orderId    String?
+  authorName String
+  country    String?
+  flag       String?
+  rating     Int
+  text       String       @db.Text
+  status     ReviewStatus @default(PENDING)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  deletedAt  DateTime?
+
+  user  User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  plan  Plan?  @relation(fields: [planId], references: [id], onDelete: SetNull)
+  order Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([planId])
+  @@index([rating])
+  @@map("reviews")
+}
+
+model SupportTicket {
+  id              String         @id @default(uuid())
+  userId          String?
+  orderId         String?
+  assignedAdminId String?
+  subject         String
+  status          TicketStatus   @default(OPEN)
+  priority        TicketPriority @default(MEDIUM)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  user          User?            @relation("TicketOwner", fields: [userId], references: [id], onDelete: SetNull)
+  assignedAdmin User?            @relation("TicketAssignee", fields: [assignedAdminId], references: [id], onDelete: SetNull)
+  order         Order?           @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  messages      SupportMessage[]
+
+  @@index([status])
+  @@index([userId])
+  @@index([assignedAdminId])
+  @@map("support_tickets")
+}
+
+model SupportMessage {
+  id          String    @id @default(uuid())
+  ticketId    String
+  authorId    String?
+  authorType  ActorType @default(USER)
+  body        String    @db.Text
+  attachments Json?
+  createdAt   DateTime  @default(now())
+
+  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  author User?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([ticketId])
+  @@map("support_messages")
+}
+
+model ContactMessage {
+  id         String   @id @default(uuid())
+  userId     String?
+  name       String
+  email      String
+  subject    String?
+  message    String   @db.Text
+  isResolved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("contact_messages")
+}
+
+// ═══════════════════════════ Communication ════════════════════════════════
+
+model EmailLog {
+  id                String      @id @default(uuid())
+  recipient         String
+  subject           String
+  template          String?
+  provider          String      @default("resend")
+  providerMessageId String?
+  status            EmailStatus @default(QUEUED)
+  orderId           String?
+  error             String?     @db.Text
+  sentAt            DateTime?
+  createdAt         DateTime    @default(now())
+
+  order Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@index([recipient])
+  @@index([status])
+  @@index([orderId])
+  @@map("email_logs")
+}
+
+// ═══════════════════════════ Observability ════════════════════════════════
+
+model ServiceHealthCheck {
+  id         String       @id @default(uuid())
+  service    String // 'frontend','api','database','tsim','payment','email','fx'
+  status     HealthStatus
+  responseMs Int?
+  detail     String?
+  checkedAt  DateTime     @default(now())
+
+  @@index([service, checkedAt])
+  @@map("service_health_checks")
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(uuid())
+  type       String // plan_viewed, checkout_started, payment_succeeded, ...
+  userId     String?
+  sessionId  String?
+  orderId    String?
+  planId     String? // scalar (no FK) — keep event writes lightweight
+  properties Json?
+  createdAt  DateTime @default(now())
+
+  user  User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  order Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@index([type, createdAt])
+  @@index([sessionId])
+  @@index([userId])
+  @@index([orderId])
+  @@map("analytics_events")
+}
+
+model DailyMetric {
+  id             String   @id @default(uuid())
+  date           DateTime @unique @db.Date
+  revenueUsd     Decimal  @default(0) @db.Decimal(14, 4)
+  ordersCount    Int      @default(0)
+  refundsCount   Int      @default(0)
+  refundsUsd     Decimal  @default(0) @db.Decimal(14, 4)
+  newUsers       Int      @default(0)
+  conversionRate Decimal? @db.Decimal(6, 4)
+  topCountry     String?
+  topPlanId      String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("daily_metrics")
+}
+
+model AuditLog {
+  id        String    @id @default(uuid())
+  actorId   String?
+  actorType ActorType @default(ADMIN)
+  action    String
+  entity    String
+  entityId  String?
+  before    Json?
+  after     Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime  @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entity, entityId])
+  @@index([actorId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ═══════════════════════════════ Settings ═════════════════════════════════
+// Key-value config + feature flags. Global profit lives in pricing_global_rules,
+// NOT here (single source of truth for money).
+
+model SiteSetting {
+  id          String      @id @default(uuid())
+  key         String      @unique
+  value       Json
+  type        SettingType @default(STRING)
+  group       String      @default("general")
+  isPublic    Boolean     @default(false)
+  description String?
+  updatedById String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  updatedBy User? @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@index([group])
+  @@index([isPublic])
+  @@map("site_settings")
+}

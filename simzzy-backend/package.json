@@ -1,0 +1,38 @@
+{
+  "name": "simzzy-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simzzy backend — Prisma schema/migrations/client + domain modules (PostgreSQL/Supabase).",
+  "main": "client.ts",
+  "types": "client.ts",
+  "exports": {
+    ".": "./client.ts"
+  },
+  "scripts": {
+    "format": "prisma format",
+    "validate": "prisma validate",
+    "generate": "prisma generate",
+    "db:pull": "prisma db pull",
+    "studio": "prisma studio",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "seed": "tsx prisma/seed.ts",
+    "db:seed": "prisma db seed",
+    "seed:superadmin": "tsx prisma/seed-superadmin.ts",
+    "seed:plans": "tsx prisma/seed-plans.ts",
+    "seed:pricing": "tsx prisma/seed-pricing.ts",
+    "seed:catalog": "tsx prisma/seed-catalog.ts",
+    "verify:tsim": "node --env-file=.env --import tsx src/providers/tsim/verify.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "bcryptjs": "^3.0.3"
+  },
+  "devDependencies": {
+    "prisma": "6.19.3",
+    "tsx": "^4.22.3"
+  }
+}
