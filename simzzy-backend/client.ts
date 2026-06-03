@@ -264,6 +264,11 @@ export {
   PaymentStateError,
 } from './src/payments'
 
+/* ─── tSIM provider (read-only verification — Phase 4H.2A) ───────────────── */
+
+export { TsimClient, fulfilOrderViaTsim } from './src/providers/tsim'
+export type { TsimCallResult, TsimResponse, TsimDataplan, FulfilResult } from './src/providers/tsim'
+
 /* ─── Admin Operations Center (Phase 4G) ─────────────────────────────────── */
 
 export {

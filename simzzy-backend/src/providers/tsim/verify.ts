@@ -67,6 +67,7 @@ async function main() {
   line('TSIM_API_HOST', status.host ?? '(unset)')
   line('TSIM_ACCOUNT', status.accountConfigured ? status.accountMasked : '(unset)')
   line('TSIM_SECRET', status.secretConfigured ? status.secretMasked : '(unset)')
+  line('Egress proxy', status.proxyConfigured ? `${status.proxyHost} (static-IP — tSIM sees this)` : '(none — direct egress)')
 
   // [2] Offline signing self-test.
   const signingOk = runSigningSelfTest()

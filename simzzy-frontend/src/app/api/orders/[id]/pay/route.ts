@@ -4,10 +4,15 @@ import {
   prisma,
   startDummyPayment,
   confirmDummyPayment,
+  fulfilOrderViaTsim,
   PaymentNotFoundError,
   PaymentStateError,
 } from 'simzzy-backend'
 import { actorMeta, requireUserApi } from '@/lib/api-guards'
+
+// Phase 4H.2B: when "true", a successful payment triggers a REAL tSIM eSIM
+// purchase + QR. Default off → the dummy fulfilment runs (no real provider call).
+const TSIM_FULFILMENT_ENABLED = process.env.TSIM_FULFILMENT_ENABLED === 'true'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -53,7 +58,28 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
 
   try {
     const intent = await startDummyPayment({ orderId: id, method, actor })
-    const result = await confirmDummyPayment({ paymentId: intent.paymentId, succeed, failureReason, actor })
+    const result = await confirmDummyPayment({
+      paymentId: intent.paymentId,
+      succeed,
+      failureReason,
+      actor,
+      // Hold at ORDER_SUBMITTED so real fulfilment can take over (when enabled).
+      holdForFulfilment: TSIM_FULFILMENT_ENABLED && succeed,
+    })
+
+    // Real tSIM fulfilment: subscribe → poll for QR → create eSIM → DELIVERED.
+    // (When the flag is on and payment succeeded, the order is held at ORDER_SUBMITTED.)
+    if (TSIM_FULFILMENT_ENABLED && succeed) {
+      const fr = await fulfilOrderViaTsim(id, { actorId: userId })
+      return NextResponse.json({
+        paymentId: intent.paymentId,
+        paymentStatus: result.paymentStatus,
+        orderStatus: fr.orderStatus,
+        fulfilment: fr.ok ? 'success' : 'failed',
+        ...(fr.error ? { fulfilmentError: fr.error } : {}),
+      })
+    }
+
     return NextResponse.json({
       paymentId: intent.paymentId,
       paymentStatus: result.paymentStatus,

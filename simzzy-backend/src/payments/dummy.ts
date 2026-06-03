@@ -91,6 +91,12 @@ export type ConfirmPaymentArgs = {
   succeed?: boolean // default true; false simulates a declined payment
   failureReason?: string
   actor: { actorId: string | null; ip?: string | null; userAgent?: string | null }
+  /**
+   * When true, the success path stops at ORDER_SUBMITTED instead of walking the
+   * dummy QR_RECEIVED → DELIVERED steps — the caller then runs real provider
+   * fulfilment (Phase 4H.2B). Used when TSIM_FULFILMENT_ENABLED is on.
+   */
+  holdForFulfilment?: boolean
 }
 
 export async function confirmDummyPayment(args: ConfirmPaymentArgs) {
@@ -141,8 +147,16 @@ export async function confirmDummyPayment(args: ConfirmPaymentArgs) {
 
   await transitionStatus(payment.orderId, OrderStatus.PAYMENT_SUCCESS, { ...sysActor, reason: 'Dummy payment captured' })
   await transitionStatus(payment.orderId, OrderStatus.ORDER_SUBMITTED, { ...sysActor, reason: 'Order queued for fulfilment' })
-  // No real provider yet — walk through the QR_RECEIVED step before DELIVERED
-  // so the timeline mirrors what tSIM integration in Phase 4H will look like.
+
+  // Real provider hand-off (Phase 4H.2B): stop here and let the caller run
+  // tSIM fulfilment, which will move QR_PENDING → QR_RECEIVED → DELIVERED.
+  if (args.holdForFulfilment) {
+    void dec
+    return { paymentStatus: PaymentStatus.SUCCESS, orderStatus: OrderStatus.ORDER_SUBMITTED }
+  }
+
+  // Dummy fulfilment: walk through QR_RECEIVED before DELIVERED so the timeline
+  // mirrors what real tSIM integration looks like.
   await transitionStatus(payment.orderId, OrderStatus.QR_RECEIVED, { ...sysActor, reason: 'QR code generated (dummy provider)' })
   await transitionStatus(payment.orderId, OrderStatus.DELIVERED, { ...sysActor, reason: 'eSIM delivered to customer email (dummy fulfilment)' })
 

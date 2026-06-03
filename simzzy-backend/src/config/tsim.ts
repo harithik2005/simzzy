@@ -22,6 +22,13 @@ export interface TsimConfig {
   account: string
   /** HMAC secret (TSIM-SIGN key). */
   secret: string
+  /**
+   * Optional static-IP egress proxy URL (e.g. QuotaGuard Static / Fixie).
+   * When set, tSIM requests are routed through it so tSIM sees a fixed IP
+   * (required because tSIM enforces an IP allowlist and Vercel egress is
+   * dynamic). Format: http://user:pass@host:port. Unset = direct connection.
+   */
+  proxyUrl?: string
 }
 
 function trimSlash(v: string): string {
@@ -42,7 +49,17 @@ export function loadTsimConfig(env: NodeJS.ProcessEnv = process.env): TsimConfig
     throw new Error(`tSIM config missing required env var(s): ${missing.join(', ')}`)
   }
 
-  return { host: trimSlash(host!), account: account!, secret: secret! }
+  return {
+    host: trimSlash(host!),
+    account: account!,
+    secret: secret!,
+    // QuotaGuard exposes QUOTAGUARDSTATIC_URL; Fixie exposes FIXIE_URL. Accept any.
+    proxyUrl:
+      env.TSIM_PROXY_URL?.trim() ||
+      env.QUOTAGUARDSTATIC_URL?.trim() ||
+      env.FIXIE_URL?.trim() ||
+      undefined,
+  }
 }
 
 /** Mask a secret for logs: keep first 2 + last 2 chars, star the middle. */
@@ -60,16 +77,29 @@ export function tsimConfigStatus(env: NodeJS.ProcessEnv = process.env): {
   hostConfigured: boolean
   accountConfigured: boolean
   secretConfigured: boolean
+  proxyConfigured: boolean
   host: string | null
   accountMasked: string
   secretMasked: string
+  proxyHost: string | null
 } {
+  const proxy = env.TSIM_PROXY_URL?.trim() || env.QUOTAGUARDSTATIC_URL?.trim() || env.FIXIE_URL?.trim() || ''
+  let proxyHost: string | null = null
+  if (proxy) {
+    try {
+      proxyHost = new URL(proxy).host // host:port only — never the user:pass
+    } catch {
+      proxyHost = '(invalid URL)'
+    }
+  }
   return {
     hostConfigured: Boolean(env.TSIM_API_HOST?.trim()),
     accountConfigured: Boolean(env.TSIM_ACCOUNT?.trim()),
     secretConfigured: Boolean(env.TSIM_SECRET?.trim()),
+    proxyConfigured: Boolean(proxy),
     host: env.TSIM_API_HOST?.trim() || null,
     accountMasked: maskSecret(env.TSIM_ACCOUNT?.trim()),
     secretMasked: maskSecret(env.TSIM_SECRET?.trim()),
+    proxyHost,
   }
 }

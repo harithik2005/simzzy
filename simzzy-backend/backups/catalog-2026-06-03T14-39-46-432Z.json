@@ -1,0 +1,452 @@
+{
+  "takenAt": "2026-06-03T14:39:46.435Z",
+  "plans": [],
+  "regions": [
+    {
+      "id": "7acd06e7-442a-45a2-92f4-1241dabe8626",
+      "code": "global",
+      "name": "Global",
+      "sortOrder": 0,
+      "createdAt": "2026-06-03T14:38:34.055Z",
+      "updatedAt": "2026-06-03T14:38:34.055Z"
+    },
+    {
+      "id": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "code": "asia",
+      "name": "Asia",
+      "sortOrder": 1,
+      "createdAt": "2026-06-03T14:38:34.728Z",
+      "updatedAt": "2026-06-03T14:38:34.728Z"
+    },
+    {
+      "id": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "code": "europe",
+      "name": "Europe",
+      "sortOrder": 2,
+      "createdAt": "2026-06-03T14:38:35.339Z",
+      "updatedAt": "2026-06-03T14:38:35.339Z"
+    },
+    {
+      "id": "656b2907-62a3-4088-bbf7-cb78749fd80b",
+      "code": "north-america",
+      "name": "North America",
+      "sortOrder": 3,
+      "createdAt": "2026-06-03T14:38:36.039Z",
+      "updatedAt": "2026-06-03T14:38:36.039Z"
+    },
+    {
+      "id": "898427a9-3e6c-4447-97ed-135c530de579",
+      "code": "south-america",
+      "name": "South America",
+      "sortOrder": 4,
+      "createdAt": "2026-06-03T14:38:36.673Z",
+      "updatedAt": "2026-06-03T14:38:36.673Z"
+    },
+    {
+      "id": "b4dc0d53-6081-4ef7-8195-94fc7e13971d",
+      "code": "africa",
+      "name": "Africa",
+      "sortOrder": 5,
+      "createdAt": "2026-06-03T14:38:37.305Z",
+      "updatedAt": "2026-06-03T14:38:37.305Z"
+    },
+    {
+      "id": "4b25e697-7920-4a06-a9d9-1dfdab77d970",
+      "code": "middle-east",
+      "name": "Middle East",
+      "sortOrder": 6,
+      "createdAt": "2026-06-03T14:38:37.999Z",
+      "updatedAt": "2026-06-03T14:38:37.999Z"
+    },
+    {
+      "id": "c2084931-b5ba-423d-8ca9-3872ac998ea5",
+      "code": "oceania",
+      "name": "Oceania",
+      "sortOrder": 7,
+      "createdAt": "2026-06-03T14:38:38.667Z",
+      "updatedAt": "2026-06-03T14:38:38.667Z"
+    }
+  ],
+  "countries": [
+    {
+      "id": "07cda6bf-6760-426a-ae49-eacc0ddd77f6",
+      "code": "JP",
+      "name": "Japan",
+      "flag": "🇯🇵",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:40.112Z",
+      "updatedAt": "2026-06-03T14:38:40.112Z"
+    },
+    {
+      "id": "91f4a866-1bf9-4db3-82e9-e8ca1dc93b51",
+      "code": "KR",
+      "name": "South Korea",
+      "flag": "🇰🇷",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:40.942Z",
+      "updatedAt": "2026-06-03T14:38:40.942Z"
+    },
+    {
+      "id": "095f26a8-487a-4de6-afc0-3373ab102dd1",
+      "code": "TH",
+      "name": "Thailand",
+      "flag": "🇹🇭",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:41.526Z",
+      "updatedAt": "2026-06-03T14:38:41.526Z"
+    },
+    {
+      "id": "a5f4a5a6-728f-4cb2-9759-a19a2e126be7",
+      "code": "IN",
+      "name": "India",
+      "flag": "🇮🇳",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:42.138Z",
+      "updatedAt": "2026-06-03T14:38:42.138Z"
+    },
+    {
+      "id": "4721ff67-b29d-4021-a67c-480465a0f231",
+      "code": "SG",
+      "name": "Singapore",
+      "flag": "🇸🇬",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:43.357Z",
+      "updatedAt": "2026-06-03T14:38:43.357Z"
+    },
+    {
+      "id": "8d8236e8-a764-49d1-ba6e-c65ead68cc14",
+      "code": "MY",
+      "name": "Malaysia",
+      "flag": "🇲🇾",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:43.965Z",
+      "updatedAt": "2026-06-03T14:38:43.965Z"
+    },
+    {
+      "id": "17ed7abf-b6f7-4d8c-a81d-5889e956e6d0",
+      "code": "ID",
+      "name": "Indonesia",
+      "flag": "🇮🇩",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:44.548Z",
+      "updatedAt": "2026-06-03T14:38:44.548Z"
+    },
+    {
+      "id": "c9ff5e7d-a965-4c41-98d5-92d79ebd8472",
+      "code": "VN",
+      "name": "Vietnam",
+      "flag": "🇻🇳",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:45.148Z",
+      "updatedAt": "2026-06-03T14:38:45.148Z"
+    },
+    {
+      "id": "05fe5091-2b8b-4ec0-a20a-531848617eac",
+      "code": "PH",
+      "name": "Philippines",
+      "flag": "🇵🇭",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:45.786Z",
+      "updatedAt": "2026-06-03T14:38:45.786Z"
+    },
+    {
+      "id": "74ddca2b-1f97-4a17-8ea8-6b177c281857",
+      "code": "HK",
+      "name": "Hong Kong",
+      "flag": "🇭🇰",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:46.380Z",
+      "updatedAt": "2026-06-03T14:38:46.380Z"
+    },
+    {
+      "id": "46f1804a-2ea5-4f04-a9fc-49084932d1cf",
+      "code": "TW",
+      "name": "Taiwan",
+      "flag": "🇹🇼",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:47.198Z",
+      "updatedAt": "2026-06-03T14:38:47.198Z"
+    },
+    {
+      "id": "9633727f-81e0-41e3-b5d6-35c8420b9204",
+      "code": "CN",
+      "name": "China",
+      "flag": "🇨🇳",
+      "regionId": "06b31cef-c557-479e-aa46-94b1da80fb95",
+      "createdAt": "2026-06-03T14:38:47.865Z",
+      "updatedAt": "2026-06-03T14:38:47.865Z"
+    },
+    {
+      "id": "8ef42584-39bf-4e59-bec6-7b73d2c6584f",
+      "code": "GB",
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:48.498Z",
+      "updatedAt": "2026-06-03T14:38:48.498Z"
+    },
+    {
+      "id": "5a0d0c5a-81f5-41f4-b617-380a76b98e28",
+      "code": "FR",
+      "name": "France",
+      "flag": "🇫🇷",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:49.173Z",
+      "updatedAt": "2026-06-03T14:38:49.173Z"
+    },
+    {
+      "id": "a54c192b-32a5-4e10-ba85-e595668e8363",
+      "code": "DE",
+      "name": "Germany",
+      "flag": "🇩🇪",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:49.939Z",
+      "updatedAt": "2026-06-03T14:38:49.939Z"
+    },
+    {
+      "id": "277de754-162d-4424-9743-814957b7d029",
+      "code": "IT",
+      "name": "Italy",
+      "flag": "🇮🇹",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:50.687Z",
+      "updatedAt": "2026-06-03T14:38:50.687Z"
+    },
+    {
+      "id": "f644c54e-b5e6-4fc0-9274-a276d180fc9b",
+      "code": "ES",
+      "name": "Spain",
+      "flag": "🇪🇸",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:51.466Z",
+      "updatedAt": "2026-06-03T14:38:51.466Z"
+    },
+    {
+      "id": "56195121-dbff-41ba-b6c5-a188bf3280e6",
+      "code": "PT",
+      "name": "Portugal",
+      "flag": "🇵🇹",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:52.245Z",
+      "updatedAt": "2026-06-03T14:38:52.245Z"
+    },
+    {
+      "id": "015b7109-c2d2-4dd8-85ac-6270ad0ce04e",
+      "code": "NL",
+      "name": "Netherlands",
+      "flag": "🇳🇱",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:52.864Z",
+      "updatedAt": "2026-06-03T14:38:52.864Z"
+    },
+    {
+      "id": "bf477bf3-897e-4e34-a49b-655f6ea185ca",
+      "code": "GR",
+      "name": "Greece",
+      "flag": "🇬🇷",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:53.599Z",
+      "updatedAt": "2026-06-03T14:38:53.599Z"
+    },
+    {
+      "id": "285cf960-b5f4-4539-a631-844619eda4a1",
+      "code": "AT",
+      "name": "Austria",
+      "flag": "🇦🇹",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:54.842Z",
+      "updatedAt": "2026-06-03T14:38:54.842Z"
+    },
+    {
+      "id": "ffd52246-30d7-4cc7-9a9b-09db63692072",
+      "code": "CH",
+      "name": "Switzerland",
+      "flag": "🇨🇭",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:55.548Z",
+      "updatedAt": "2026-06-03T14:38:55.548Z"
+    },
+    {
+      "id": "bb66e28f-bb0b-40c0-9af1-fd29bb46cb31",
+      "code": "TR",
+      "name": "Turkey",
+      "flag": "🇹🇷",
+      "regionId": "0090ba9d-690a-4820-b8fa-12908fa77e1c",
+      "createdAt": "2026-06-03T14:38:56.161Z",
+      "updatedAt": "2026-06-03T14:38:56.161Z"
+    },
+    {
+      "id": "2be2b6bf-80d6-4aa4-bede-7a9bf4dd7912",
+      "code": "US",
+      "name": "United States",
+      "flag": "🇺🇸",
+      "regionId": "656b2907-62a3-4088-bbf7-cb78749fd80b",
+      "createdAt": "2026-06-03T14:38:56.826Z",
+      "updatedAt": "2026-06-03T14:38:56.826Z"
+    },
+    {
+      "id": "992342c7-2cae-4f1f-beb3-116d767533a5",
+      "code": "CA",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "regionId": "656b2907-62a3-4088-bbf7-cb78749fd80b",
+      "createdAt": "2026-06-03T14:38:57.458Z",
+      "updatedAt": "2026-06-03T14:38:57.458Z"
+    },
+    {
+      "id": "8c2224da-b38d-4c77-bdcc-004c5ce78003",
+      "code": "MX",
+      "name": "Mexico",
+      "flag": "🇲🇽",
+      "regionId": "656b2907-62a3-4088-bbf7-cb78749fd80b",
+      "createdAt": "2026-06-03T14:38:58.138Z",
+      "updatedAt": "2026-06-03T14:38:58.138Z"
+    },
+    {
+      "id": "ae6b39e9-d2be-4a82-ac49-c5ef3af7a599",
+      "code": "BR",
+      "name": "Brazil",
+      "flag": "🇧🇷",
+      "regionId": "898427a9-3e6c-4447-97ed-135c530de579",
+      "createdAt": "2026-06-03T14:38:58.799Z",
+      "updatedAt": "2026-06-03T14:38:58.799Z"
+    },
+    {
+      "id": "20a616d3-2086-4763-88e9-f9d06f741545",
+      "code": "AR",
+      "name": "Argentina",
+      "flag": "🇦🇷",
+      "regionId": "898427a9-3e6c-4447-97ed-135c530de579",
+      "createdAt": "2026-06-03T14:38:59.402Z",
+      "updatedAt": "2026-06-03T14:38:59.402Z"
+    },
+    {
+      "id": "1c548196-6356-41e3-8264-b20ba659035f",
+      "code": "CL",
+      "name": "Chile",
+      "flag": "🇨🇱",
+      "regionId": "898427a9-3e6c-4447-97ed-135c530de579",
+      "createdAt": "2026-06-03T14:39:00.020Z",
+      "updatedAt": "2026-06-03T14:39:00.020Z"
+    },
+    {
+      "id": "bc4cb0a1-4b02-4c32-ab80-56c18630a72b",
+      "code": "CO",
+      "name": "Colombia",
+      "flag": "🇨🇴",
+      "regionId": "898427a9-3e6c-4447-97ed-135c530de579",
+      "createdAt": "2026-06-03T14:39:00.825Z",
+      "updatedAt": "2026-06-03T14:39:00.825Z"
+    },
+    {
+      "id": "123b1f7f-1743-483d-9281-6e4af47b6790",
+      "code": "PE",
+      "name": "Peru",
+      "flag": "🇵🇪",
+      "regionId": "898427a9-3e6c-4447-97ed-135c530de579",
+      "createdAt": "2026-06-03T14:39:01.564Z",
+      "updatedAt": "2026-06-03T14:39:01.564Z"
+    },
+    {
+      "id": "bd9df26c-36cd-4266-8dc5-d91e12d68164",
+      "code": "AE",
+      "name": "United Arab Emirates",
+      "flag": "🇦🇪",
+      "regionId": "4b25e697-7920-4a06-a9d9-1dfdab77d970",
+      "createdAt": "2026-06-03T14:39:02.353Z",
+      "updatedAt": "2026-06-03T14:39:02.353Z"
+    },
+    {
+      "id": "13e2e9d8-0da6-46bb-9279-4146fb1c985d",
+      "code": "SA",
+      "name": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "regionId": "4b25e697-7920-4a06-a9d9-1dfdab77d970",
+      "createdAt": "2026-06-03T14:39:02.957Z",
+      "updatedAt": "2026-06-03T14:39:02.957Z"
+    },
+    {
+      "id": "da78789d-286c-43ae-aa5c-b71b4017449c",
+      "code": "IL",
+      "name": "Israel",
+      "flag": "🇮🇱",
+      "regionId": "4b25e697-7920-4a06-a9d9-1dfdab77d970",
+      "createdAt": "2026-06-03T14:39:03.578Z",
+      "updatedAt": "2026-06-03T14:39:03.578Z"
+    },
+    {
+      "id": "3d1c6008-4da8-4bdc-a95c-5a7a25c04e0d",
+      "code": "QA",
+      "name": "Qatar",
+      "flag": "🇶🇦",
+      "regionId": "4b25e697-7920-4a06-a9d9-1dfdab77d970",
+      "createdAt": "2026-06-03T14:39:04.239Z",
+      "updatedAt": "2026-06-03T14:39:04.239Z"
+    },
+    {
+      "id": "58c27625-1308-44e9-ab96-52cfb25c4d44",
+      "code": "EG",
+      "name": "Egypt",
+      "flag": "🇪🇬",
+      "regionId": "b4dc0d53-6081-4ef7-8195-94fc7e13971d",
+      "createdAt": "2026-06-03T14:39:05.314Z",
+      "updatedAt": "2026-06-03T14:39:05.314Z"
+    },
+    {
+      "id": "68abb008-343a-4b3e-a6e5-44f743be0c0b",
+      "code": "ZA",
+      "name": "South Africa",
+      "flag": "🇿🇦",
+      "regionId": "b4dc0d53-6081-4ef7-8195-94fc7e13971d",
+      "createdAt": "2026-06-03T14:39:05.922Z",
+      "updatedAt": "2026-06-03T14:39:05.922Z"
+    },
+    {
+      "id": "2547145e-16e7-46db-85cd-eb22dbc95f78",
+      "code": "MA",
+      "name": "Morocco",
+      "flag": "🇲🇦",
+      "regionId": "b4dc0d53-6081-4ef7-8195-94fc7e13971d",
+      "createdAt": "2026-06-03T14:39:06.510Z",
+      "updatedAt": "2026-06-03T14:39:06.510Z"
+    },
+    {
+      "id": "449247ab-c751-4f99-b9cc-b547bbb52eb8",
+      "code": "KE",
+      "name": "Kenya",
+      "flag": "🇰🇪",
+      "regionId": "b4dc0d53-6081-4ef7-8195-94fc7e13971d",
+      "createdAt": "2026-06-03T14:39:07.159Z",
+      "updatedAt": "2026-06-03T14:39:07.159Z"
+    },
+    {
+      "id": "26730e77-ee86-4622-be2c-4a56d15eda2e",
+      "code": "AU",
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "regionId": "c2084931-b5ba-423d-8ca9-3872ac998ea5",
+      "createdAt": "2026-06-03T14:39:07.857Z",
+      "updatedAt": "2026-06-03T14:39:07.857Z"
+    },
+    {
+      "id": "6b2d72cc-5377-4b09-998f-c69ed7520235",
+      "code": "NZ",
+      "name": "New Zealand",
+      "flag": "🇳🇿",
+      "regionId": "c2084931-b5ba-423d-8ca9-3872ac998ea5",
+      "createdAt": "2026-06-03T14:39:08.699Z",
+      "updatedAt": "2026-06-03T14:39:08.699Z"
+    },
+    {
+      "id": "e5834a68-1675-4390-bdf4-05fdf1cca328",
+      "code": "FJ",
+      "name": "Fiji",
+      "flag": "🇫🇯",
+      "regionId": "c2084931-b5ba-423d-8ca9-3872ac998ea5",
+      "createdAt": "2026-06-03T14:39:09.400Z",
+      "updatedAt": "2026-06-03T14:39:09.400Z"
+    }
+  ],
+  "destinations": [],
+  "overrides": []
+}

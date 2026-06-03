@@ -15,6 +15,29 @@ export interface TsimResponse<T = unknown> {
 
 export const TSIM_SUCCESS_CODE = 1
 
+/** Result of esimSubscribe — the async order handle. */
+export interface TsimSubscribeResult {
+  topup_id: string
+}
+
+/** topupDetail / getOrderInfoByCustomOrderNo result — populated once provisioned. */
+export interface TsimTopupDetail {
+  topup_id: string
+  device_ids?: string[]
+  operator_iccids?: string[]
+  number?: number
+  success_number?: number
+  channel_dataplan_id?: string
+  channel_dataplan_name?: string
+  day?: number
+  create_time?: string
+  /** LPA activation strings (e.g. "LPA:1$rsp...$CODE"). Empty until provisioned. */
+  lpa_str?: string[]
+  /** Hosted QR-code image URLs. Empty until provisioned. */
+  qrcode?: string[]
+  ios_esim_install_link?: string[]
+}
+
 /** A single data-plan row from the dataplan list endpoints. */
 export interface TsimDataplan {
   channel_dataplan_id: string

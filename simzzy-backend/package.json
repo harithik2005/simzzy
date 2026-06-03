@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@prisma/client": "6.19.3",
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "undici": "^8.3.0"
   },
   "devDependencies": {
     "prisma": "6.19.3",
