@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Mail, MessageCircle, MapPin } from 'lucide-react'
+import { Mail, MessageCircle, MapPin, LifeBuoy } from 'lucide-react'
 import { toast } from '@/store/toast'
+import { COMPANY } from '@/lib/constants'
 
 const INPUT =
   'w-full bg-mid border border-border rounded-lg px-3 py-2.5 text-[13px] text-primary placeholder:text-muted focus:outline-none focus:border-border-hover'
@@ -81,8 +82,9 @@ export default function ContactPage() {
         {/* Methods */}
         <div className="flex flex-col gap-3">
           <ContactMethod icon={MessageCircle} title="AI Support" desc="Open the chat widget for instant help, 24/7." />
-          <ContactMethod icon={Mail} title="Email" desc="support@simzzy.com" href="mailto:support@simzzy.com" />
-          <ContactMethod icon={MapPin} title="Help Center" desc="Browse FAQs and guides." href="/support" />
+          <ContactMethod icon={Mail} title="Email" desc={COMPANY.supportEmail} href={`mailto:${COMPANY.supportEmail}`} />
+          <ContactMethod icon={MapPin} title="Registered office" desc={`${COMPANY.name}, ${COMPANY.addressInline}`} />
+          <ContactMethod icon={LifeBuoy} title="Help Center" desc="Browse FAQs and guides." href="/support" />
         </div>
       </div>
     </>

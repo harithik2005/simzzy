@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FOOTER_LINKS, PAYMENT_METHODS, SOCIAL_LINKS } from '@/lib/constants'
+import { FOOTER_LINKS, PAYMENT_METHODS, SOCIAL_LINKS, COMPANY } from '@/lib/constants'
 import { CurrencySwitcher } from './CurrencySwitcher'
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
@@ -30,11 +30,19 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <div className="text-gradient text-2xl font-bold mb-4">Simzzy</div>
+            <div className="text-gradient text-2xl font-bold mb-4">{COMPANY.name}</div>
             <p className="text-sm text-muted leading-relaxed mb-5">
               Instant eSIM data plans for 150+ countries. Stay connected wherever you travel —
               no physical SIM, no roaming fees.
             </p>
+            <address className="not-italic text-sm text-muted leading-relaxed mb-5">
+              <span className="block font-semibold text-secondary">{COMPANY.name}</span>
+              {COMPANY.addressLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </address>
             <div className="flex items-center gap-2.5">
               {SOCIAL_LINKS.map((s) => (
                 <a
@@ -111,7 +119,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted">© 2026 Simzzy. All rights reserved.</p>
+          <p className="text-sm text-muted">© 2026 Simzzy Limited. All rights reserved.</p>
 
           <div className="flex items-center gap-5 flex-wrap justify-center">
             <CurrencySwitcher />

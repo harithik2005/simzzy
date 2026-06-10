@@ -28,6 +28,15 @@ export const FOOTER_LINKS: Record<string, FooterSection[]> = {
   ],
 }
 
+/** Registered company / legal entity — single source of truth used by the
+ *  footer, contact page, and legal pages so the name + address never drift. */
+export const COMPANY = {
+  name: 'Simzzy Limited',
+  addressLines: ['Room 13, 27/F, EGL Tower', 'Kowloon, Hong Kong'],
+  addressInline: 'Room 13, 27/F, EGL Tower, Kowloon, Hong Kong',
+  supportEmail: 'support@simzzy.com',
+} as const
+
 export const SOCIAL_LINKS = [
   { label: 'X (Twitter)', href: 'https://x.com' },
   { label: 'Instagram', href: 'https://instagram.com' },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { InfoShell, InfoSection, InfoHelpNote } from '@/components/layout/InfoShell'
+import { COMPANY } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -24,6 +25,26 @@ export default function TermsPage() {
       </InfoSection>
       <InfoSection heading="5. Acceptable use">
         <p>Plans are for personal use and subject to fair-usage policies. Reselling, abuse, or fraudulent activity may result in suspension without refund.</p>
+      </InfoSection>
+      <InfoSection heading="6. Company information">
+        <p>
+          These terms are a legal agreement between you and{' '}
+          <strong className="text-primary">{COMPANY.name}</strong>.
+        </p>
+        <address className="not-italic">
+          {COMPANY.addressLines.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+        </address>
+        <p>
+          For questions about these terms, contact us at{' '}
+          <a href={`mailto:${COMPANY.supportEmail}`} className="text-accent-pink font-semibold hover:underline">
+            {COMPANY.supportEmail}
+          </a>
+          .
+        </p>
       </InfoSection>
       <InfoHelpNote />
     </InfoShell>
