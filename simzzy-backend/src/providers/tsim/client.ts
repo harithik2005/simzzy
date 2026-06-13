@@ -9,6 +9,7 @@
  * Every request is signed with the four TSIM-* headers (see ./signing) and
  * returns the `{ code, msg, result }` envelope (code === 1 = success).
  */
+import { randomBytes } from 'node:crypto'
 import { ProxyAgent, type Dispatcher } from 'undici'
 import { loadTsimConfig, type TsimConfig } from '../../config/tsim'
 import { buildTsimHeaders } from './signing'
@@ -36,6 +37,26 @@ export interface TsimCallResult<T = unknown> {
 }
 
 const DEFAULT_TIMEOUT_MS = 60_000
+
+/**
+ * Build a multipart/form-data body as a Buffer (with explicit boundary) so the
+ * POST goes out with a fixed Content-Length. tSIM's Tomcat multipart parser
+ * 500s on chunked uploads — which is what undici sends for a FormData/stream
+ * body — whereas curl works because it sets Content-Length. Verified live.
+ */
+function buildMultipartForm(fields: Record<string, string | number | undefined>): {
+  body: Buffer
+  contentType: string
+} {
+  const boundary = '----simzzytsim' + randomBytes(12).toString('hex')
+  const chunks: Buffer[] = []
+  for (const [k, v] of Object.entries(fields)) {
+    if (v === undefined || v === '') continue
+    chunks.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${k}"\r\n\r\n${String(v)}\r\n`))
+  }
+  chunks.push(Buffer.from(`--${boundary}--\r\n`))
+  return { body: Buffer.concat(chunks), contentType: `multipart/form-data; boundary=${boundary}` }
+}
 
 export class TsimClient {
   private readonly cfg: TsimConfig
@@ -147,12 +168,10 @@ export class TsimClient {
     timeoutMs = DEFAULT_TIMEOUT_MS,
   ): Promise<TsimCallResult<T>> {
     // TSIM-* signature is over account+nonce+timestamp only, so it's independent
-    // of the body. Do NOT set Content-Type — fetch sets the multipart boundary.
+    // of the body. Build the multipart body as a Buffer (buildMultipartForm) so
+    // it carries an explicit Content-Length — tSIM's Tomcat 500s on chunked.
     const headers = buildTsimHeaders({ account: this.cfg.account, secret: this.cfg.secret })
-    const form = new FormData()
-    for (const [k, v] of Object.entries(fields)) {
-      if (v !== undefined && v !== '') form.append(k, String(v))
-    }
+    const { body, contentType } = buildMultipartForm(fields)
     const url = this.url(path)
     const started = Date.now()
     const controller = new AbortController()
@@ -160,8 +179,8 @@ export class TsimClient {
     try {
       const res = await fetch(url, {
         method: 'POST',
-        headers: { ...headers }, // TSIM-* only; no Content-Type (FormData sets the boundary)
-        body: form,
+        headers: { ...headers, 'Content-Type': contentType },
+        body,
         signal: controller.signal,
         ...(this.dispatcher ? { dispatcher: this.dispatcher } : {}),
       } as RequestInit & { dispatcher?: Dispatcher })
