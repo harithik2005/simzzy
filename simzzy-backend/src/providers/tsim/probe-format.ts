@@ -1,33 +1,45 @@
 /**
- * One-off: does this account's authenticated POST endpoints work at all?
- * Probes the READ-ONLY `topupDetail` (non-billable) using the doc-correct
- * multipart/form-data format with a WELL-FORMED (but non-existent) 32-hex
- * topup_id. A JSON "not found" => POST works (esimSubscribe 500 is balance/
- * permission). Another nginx 500 => POST endpoints are broken for this account.
+ * One-off: is the POST 500 caused by OUR client (undici) or by tSIM?
+ * Sends the SAME read-only POST (topupDetail, non-billable) two ways with a
+ * valid signature: (a) our app's undici fetch, (b) plain curl. If BOTH 500 it
+ * is 100% tSIM-side; if curl works but fetch 500s it is our code.
  *
  *   node --env-file=.env --import tsx src/providers/tsim/probe-format.ts
  */
+import { execSync } from 'node:child_process'
 import { loadTsimConfig } from '../../config/tsim'
 import { buildTsimHeaders } from './signing'
 
 const cfg = loadTsimConfig()
+const path = '/tsim/v1/topupDetail'
+const field = { topup_id: 'ffffffffffffffffffffffffffffffff' }
 
-async function postForm(path: string, fields: Record<string, string>) {
+async function viaUndici() {
   const headers: Record<string, string> = { ...buildTsimHeaders({ account: cfg.account, secret: cfg.secret }) }
   const fd = new FormData()
-  for (const [k, v] of Object.entries(fields)) fd.append(k, v)
+  for (const [k, v] of Object.entries(field)) fd.append(k, v)
   const res = await fetch(`${cfg.host}${path}`, { method: 'POST', headers, body: fd })
   const text = await res.text()
   const kind = text.trim().startsWith('{') ? 'JSON ✅' : 'HTML 500 ❌'
-  console.log(`\nPOST ${path}  ${JSON.stringify(fields)}`)
-  console.log(`  http=${res.status} ${kind}: ${text.slice(0, 200).replace(/\s+/g, ' ').trim()}`)
+  console.log(`\n(a) undici fetch  -> http=${res.status} ${kind}: ${text.slice(0, 160).replace(/\s+/g, ' ').trim()}`)
+}
+
+function viaCurl() {
+  const h = buildTsimHeaders({ account: cfg.account, secret: cfg.secret })
+  const forms = Object.entries(field).map(([k, v]) => `-F "${k}=${v}"`).join(' ')
+  const cmd =
+    `curl -s --max-time 40 -w "\\nhttp=%{http_code}" ` +
+    `-H "TSIM-ACCOUNT: ${h['TSIM-ACCOUNT']}" -H "TSIM-NONCE: ${h['TSIM-NONCE']}" ` +
+    `-H "TSIM-TIMESTAMP: ${h['TSIM-TIMESTAMP']}" -H "TSIM-SIGN: ${h['TSIM-SIGN']}" ` +
+    `${forms} "${cfg.host}${path}"`
+  const out = execSync(cmd, { encoding: 'utf8' })
+  const kind = out.trim().startsWith('{') ? 'JSON ✅' : 'HTML 500 ❌'
+  console.log(`\n(b) plain curl    -> ${kind}: ${out.slice(0, 180).replace(/\s+/g, ' ').trim()}`)
 }
 
 async function main() {
-  // Well-formed 32-hex id that won't exist for this account -> expect JSON "not found".
-  await postForm('/tsim/v1/topupDetail', { topup_id: 'ffffffffffffffffffffffffffffffff' })
-  // Cross-check another read-only POST that looks up by a custom order number.
-  await postForm('/tsim/v1/getOrderInfoByCustomOrderNo', { custom_order_no: 'probe-test-0001' })
+  await viaUndici()
+  viaCurl()
 }
 
 main()
