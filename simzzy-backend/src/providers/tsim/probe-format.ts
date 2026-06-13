@@ -1,52 +1,59 @@
 /**
- * One-off: find the real difference between undici (500) and curl (works) on
- * tSIM POST. Tries several undici encodings + curl over HTTP/2 and HTTP/1.1
- * against the read-only topupDetail (non-billable).
+ * One-off: undici POST always 500s but curl always works. Test (a) undici with
+ * curl-like headers and (b) Node's native https module (different HTTP stack),
+ * against read-only topupDetail (non-billable). Whichever returns JSON is the fix.
  *
  *   node --env-file=.env --import tsx src/providers/tsim/probe-format.ts
  */
-import { execSync } from 'node:child_process'
+import https from 'node:https'
 import { randomBytes } from 'node:crypto'
 import { loadTsimConfig } from '../../config/tsim'
 import { buildTsimHeaders } from './signing'
 
 const cfg = loadTsimConfig()
-const url = `${cfg.host}/tsim/v1/topupDetail`
+const u = new URL(`${cfg.host}/tsim/v1/topupDetail`)
 const id = 'ffffffffffffffffffffffffffffffff'
 const hdr = () => buildTsimHeaders({ account: cfg.account, secret: cfg.secret })
 
-function show(label: string, status: string | number, text: string) {
-  const kind = text.trim().startsWith('{') ? 'JSON ✅' : 'HTML/500 ❌'
-  console.log(`${label.padEnd(30)} http=${status} ${kind}: ${text.slice(0, 80).replace(/\s+/g, ' ').trim()}`)
-}
-
-async function undiciMultipart() {
+function multipart(): { body: Buffer; ct: string } {
   const b = '----x' + randomBytes(8).toString('hex')
   const body = Buffer.from(`--${b}\r\nContent-Disposition: form-data; name="topup_id"\r\n\r\n${id}\r\n--${b}--\r\n`)
-  const res = await fetch(url, { method: 'POST', headers: { ...hdr(), 'Content-Type': `multipart/form-data; boundary=${b}` }, body })
-  show('undici multipart', res.status, await res.text())
+  return { body, ct: `multipart/form-data; boundary=${b}` }
 }
-async function undiciUrlencoded() {
-  const res = await fetch(url, { method: 'POST', headers: { ...hdr(), 'Content-Type': 'application/x-www-form-urlencoded' }, body: `topup_id=${id}` })
-  show('undici urlencoded', res.status, await res.text())
+function show(label: string, status: number | string, text: string) {
+  const kind = text.trim().startsWith('{') ? 'JSON ✅' : 'HTML/500 ❌'
+  console.log(`${label.padEnd(28)} http=${status} ${kind}: ${text.slice(0, 80).replace(/\s+/g, ' ').trim()}`)
 }
-function curl(label: string, extra: string) {
-  const h = hdr()
-  const cmd =
-    `curl -s -w "\\nHTTP%{http_code}" ${extra} ` +
-    `-H "TSIM-ACCOUNT: ${h['TSIM-ACCOUNT']}" -H "TSIM-NONCE: ${h['TSIM-NONCE']}" ` +
-    `-H "TSIM-TIMESTAMP: ${h['TSIM-TIMESTAMP']}" -H "TSIM-SIGN: ${h['TSIM-SIGN']}" ` +
-    `-F "topup_id=${id}" "${url}"`
-  let out = ''
-  try { out = execSync(cmd, { encoding: 'utf8' }) } catch (e) { out = String(e) }
-  const m = out.match(/HTTP(\d+)\s*$/)
-  show(label, m ? m[1] : '?', out.replace(/\s*HTTP\d+\s*$/, ''))
+
+async function undiciCurlLike() {
+  const { body, ct } = multipart()
+  const res = await fetch(u, {
+    method: 'POST',
+    headers: { ...hdr(), 'Content-Type': ct, 'User-Agent': 'curl/8.5.0', Accept: '*/*', 'Accept-Encoding': 'identity', Connection: 'close' },
+    body,
+  })
+  show('undici + curl-like hdrs', res.status, await res.text())
+}
+
+function nodeHttps(): Promise<void> {
+  return new Promise((resolve) => {
+    const { body, ct } = multipart()
+    const req = https.request(
+      { hostname: u.hostname, path: u.pathname, method: 'POST', headers: { ...hdr(), 'Content-Type': ct, 'Content-Length': body.length } },
+      (res) => {
+        let data = ''
+        res.on('data', (c) => (data += c))
+        res.on('end', () => { show('node:https native', res.statusCode ?? 0, data); resolve() })
+      },
+    )
+    req.on('error', (e) => { show('node:https native', 'ERR', String(e)); resolve() })
+    req.write(body)
+    req.end()
+  })
 }
 
 async function main() {
-  await undiciMultipart()
-  await undiciUrlencoded()
-  curl('curl -F (default h2)', '')
-  curl('curl -F --http1.1', '--http1.1')
+  await undiciCurlLike()
+  await nodeHttps()
 }
 main()
