@@ -1,5 +1,18 @@
-import type { OrderStatus, PaymentStatus } from '@prisma/client'
+import type { EsimStatus, OrderStatus, PaymentStatus } from '@prisma/client'
 import type { PublicStatus } from './state'
+
+/** Customer-facing eSIM (the QR + activation details), once provisioned. */
+export type OrderEsimDto = {
+  status: EsimStatus
+  iccid: string | null
+  /** Hosted QR image URL from the provider (may not be publicly loadable). */
+  qrCodeUrl: string | null
+  /** LPA activation string the QR encodes — render this into a QR client-side. */
+  qrCodeData: string | null
+  activationCode: string | null
+  smdpAddress: string | null
+  apn: string | null
+}
 
 export type OrderItemDto = {
   id: string
@@ -18,6 +31,8 @@ export type OrderItemDto = {
   appliedRuleType: string
   appliedRuleLabel: string | null
   quantity: number
+  /** Provisioned eSIM for this item (null until fulfilment completes). */
+  esim: OrderEsimDto | null
 }
 
 export type OrderEventDto = {

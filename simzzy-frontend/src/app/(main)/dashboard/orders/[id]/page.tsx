@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, Circle, XCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Circle, XCircle, Copy } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 import { cn } from '@/lib/utils'
 import { toast } from '@/store/toast'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
 import { AuthGuard } from '@/components/auth/AuthGuard'
 import { fetchMyOrderDetail, cancelOrder, type OrderDetailDto } from '@/lib/order-client'
+
+type OrderItem = OrderDetailDto['items'][number]
 
 const STATUS_LABEL: Record<string, string> = {
   PENDING: 'Pending',
@@ -130,6 +133,21 @@ function PageBody() {
       {/* Body */}
       <div className="max-w-[1000px] mx-auto px-6 pb-20 pt-10 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         <div className="flex flex-col gap-6 min-w-0">
+          {/* eSIM QR — shown once fulfilment has provisioned the eSIM(s) */}
+          {order.items.some((i) => i.esim?.qrCodeData || i.esim?.activationCode || i.esim?.qrCodeUrl) && (
+            <div className="bg-card border border-border rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-btn" />
+              <p className="font-mono text-[11px] font-bold tracking-[2px] uppercase text-accent-pink mb-4">Your eSIM</p>
+              <div className="flex flex-col gap-8">
+                {order.items
+                  .filter((i) => i.esim?.qrCodeData || i.esim?.activationCode || i.esim?.qrCodeUrl)
+                  .map((i) => (
+                    <EsimCard key={i.id} item={i} />
+                  ))}
+              </div>
+            </div>
+          )}
+
           {/* Items */}
           <div className="bg-card border border-border rounded-2xl p-6 relative overflow-hidden">
             <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-btn" />
@@ -221,6 +239,56 @@ function PageBody() {
         </div>
       </div>
     </>
+  )
+}
+
+function EsimCard({ item }: { item: OrderItem }) {
+  const esim = item.esim
+  if (!esim) return null
+  const lpa = esim.qrCodeData ?? esim.activationCode
+
+  return (
+    <div className="flex flex-col sm:flex-row gap-5 items-start">
+      <div className="bg-white rounded-xl p-3 shrink-0 mx-auto sm:mx-0">
+        {lpa ? (
+          <QRCodeSVG value={lpa} size={168} level="M" />
+        ) : esim.qrCodeUrl ? (
+          <a href={esim.qrCodeUrl} target="_blank" rel="noopener noreferrer" className="text-[12px] text-accent-purple underline">
+            Open QR image
+          </a>
+        ) : null}
+      </div>
+      <div className="flex-1 min-w-0 w-full">
+        <p className="text-[14px] font-semibold mb-1">{item.planName}</p>
+        <p className="text-[12px] text-secondary mb-4">
+          Scan this QR in <strong className="text-primary">Settings → Mobile/Cellular → Add eSIM</strong>, or enter the
+          activation code manually.
+        </p>
+        {lpa && <CopyField label="Activation code (LPA)" value={lpa} />}
+        {esim.smdpAddress && <CopyField label="SM-DP+ address" value={esim.smdpAddress} />}
+        {esim.iccid && <CopyField label="ICCID" value={esim.iccid} />}
+      </div>
+    </div>
+  )
+}
+
+function CopyField({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="mb-2.5">
+      <p className="text-[10px] uppercase tracking-wide text-muted mb-1">{label}</p>
+      <button
+        type="button"
+        onClick={() => {
+          navigator.clipboard?.writeText(value)
+          toast.success('Copied to clipboard')
+        }}
+        title="Click to copy"
+        className="group w-full flex items-center justify-between gap-2 font-mono text-[12px] text-primary bg-white/[0.03] border border-border rounded-lg px-3 py-2 break-all text-left hover:border-border-hover transition-colors"
+      >
+        <span className="break-all">{value}</span>
+        <Copy className="w-3.5 h-3.5 text-muted shrink-0 group-hover:text-primary transition-colors" />
+      </button>
+    </div>
   )
 }
 

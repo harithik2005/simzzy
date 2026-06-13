@@ -214,7 +214,7 @@ export async function getOrderDetail(orderId: string): Promise<OrderDetailDto | 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
     include: {
-      items: true,
+      items: { include: { esim: true } },
       statusHistory: { orderBy: { createdAt: 'asc' } },
       payments: {
         orderBy: { createdAt: 'asc' },
@@ -262,6 +262,17 @@ export async function getOrderDetail(orderId: string): Promise<OrderDetailDto | 
       appliedRuleType: i.appliedRuleType,
       appliedRuleLabel: i.appliedRuleLabel,
       quantity: i.quantity,
+      esim: i.esim
+        ? {
+            status: i.esim.status,
+            iccid: i.esim.iccid,
+            qrCodeUrl: i.esim.qrCodeUrl,
+            qrCodeData: i.esim.qrCodeData,
+            activationCode: i.esim.activationCode,
+            smdpAddress: i.esim.smdpAddress,
+            apn: i.esim.apn,
+          }
+        : null,
     })),
     timeline: order.statusHistory.map((h) => ({
       id: h.id,
