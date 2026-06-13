@@ -97,7 +97,7 @@ export function tsimConfigStatus(env: NodeJS.ProcessEnv = process.env): {
     accountConfigured: Boolean(env.TSIM_ACCOUNT?.trim()),
     secretConfigured: Boolean(env.TSIM_SECRET?.trim()),
     proxyConfigured: Boolean(proxy),
-    host: env.TSIM_API_HOST?.trim() || null,
+    host: env.TSIM_API_HOST?.trim() ? trimSlash(env.TSIM_API_HOST.trim()) : null,
     accountMasked: maskSecret(env.TSIM_ACCOUNT?.trim()),
     secretMasked: maskSecret(env.TSIM_SECRET?.trim()),
     proxyHost,

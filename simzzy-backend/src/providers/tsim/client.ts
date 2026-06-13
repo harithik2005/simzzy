@@ -35,7 +35,7 @@ export interface TsimCallResult<T = unknown> {
   ms: number
 }
 
-const DEFAULT_TIMEOUT_MS = 15_000
+const DEFAULT_TIMEOUT_MS = 60_000
 
 export class TsimClient {
   private readonly cfg: TsimConfig
