@@ -10,6 +10,7 @@
  * returns the `{ code, msg, result }` envelope (code === 1 = success).
  */
 import { randomBytes } from 'node:crypto'
+import { request as httpsRequest } from 'node:https'
 import { ProxyAgent, type Dispatcher } from 'undici'
 import { loadTsimConfig, type TsimConfig } from '../../config/tsim'
 import { buildTsimHeaders } from './signing'
@@ -162,58 +163,78 @@ export class TsimClient {
 
   /* ── form-data POST (tSIM write/poll endpoints use multipart/form-data) ── */
 
-  private async requestForm<T>(
+  private requestForm<T>(
     path: string,
     fields: Record<string, string | number | undefined>,
     timeoutMs = DEFAULT_TIMEOUT_MS,
   ): Promise<TsimCallResult<T>> {
-    // TSIM-* signature is over account+nonce+timestamp only, so it's independent
-    // of the body. Build the multipart body as a Buffer (buildMultipartForm) so
-    // it carries an explicit Content-Length — tSIM's Tomcat 500s on chunked.
+    // tSIM's server rejects undici/`fetch` POST bodies with an HTTP 500 (a
+    // low-level request-framing quirk — verified live: identical POST 500s via
+    // fetch but returns JSON via curl / node:https). So write+poll endpoints go
+    // through Node's native https stack, which behaves like curl.
+    // TSIM-* signature is over account+nonce+timestamp only — independent of body.
+    if (this.cfg.proxyUrl) {
+      // The GET path tunnels through the static-IP proxy via undici's dispatcher;
+      // this node:https POST path does not. Don't silently egress from the wrong
+      // IP — writes must run from a host whose own IP is whitelisted.
+      return Promise.resolve({
+        ok: false, httpStatus: 0, code: null,
+        message: 'tSIM form POST cannot use TSIM_PROXY_URL — run write/fulfilment from a host with a whitelisted egress IP',
+        result: null, parsedEnvelope: false, ms: 0,
+      })
+    }
     const headers = buildTsimHeaders({ account: this.cfg.account, secret: this.cfg.secret })
     const { body, contentType } = buildMultipartForm(fields)
-    const url = this.url(path)
+    const u = new URL(this.url(path))
     const started = Date.now()
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), timeoutMs)
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { ...headers, 'Content-Type': contentType },
-        body,
-        signal: controller.signal,
-        ...(this.dispatcher ? { dispatcher: this.dispatcher } : {}),
-      } as RequestInit & { dispatcher?: Dispatcher })
-      const ms = Date.now() - started
-      let parsed: TsimResponse<T> | null = null
-      let text = ''
-      try {
-        text = await res.text()
-        const j = text ? JSON.parse(text) : null
-        if (j && typeof j === 'object' && 'code' in j) parsed = j as TsimResponse<T>
-      } catch {
-        /* non-JSON */
-      }
-      return {
-        ok: res.ok && parsed?.code === TSIM_SUCCESS_CODE,
-        httpStatus: res.status,
-        code: parsed?.code ?? null,
-        message: parsed?.msg ?? (text ? text.slice(0, 200).replace(/\s+/g, ' ').trim() : res.statusText),
-        result: parsed?.result ?? null,
-        parsedEnvelope: parsed !== null,
-        ms,
-      }
-    } catch (err) {
-      const ms = Date.now() - started
-      const aborted = err instanceof Error && err.name === 'AbortError'
-      return {
-        ok: false, httpStatus: 0, code: null,
-        message: aborted ? `timeout after ${timeoutMs}ms` : err instanceof Error ? err.message : String(err),
-        result: null, parsedEnvelope: false, ms,
-      }
-    } finally {
-      clearTimeout(timer)
-    }
+
+    return new Promise<TsimCallResult<T>>((resolve) => {
+      const req = httpsRequest(
+        {
+          hostname: u.hostname,
+          port: u.port || 443,
+          path: u.pathname + u.search,
+          method: 'POST',
+          headers: { ...headers, 'Content-Type': contentType, 'Content-Length': body.length },
+          timeout: timeoutMs,
+        },
+        (res) => {
+          let text = ''
+          res.setEncoding('utf8')
+          res.on('data', (c) => (text += c))
+          res.on('end', () => {
+            const ms = Date.now() - started
+            const status = res.statusCode ?? 0
+            let parsed: TsimResponse<T> | null = null
+            try {
+              const j = text ? JSON.parse(text) : null
+              if (j && typeof j === 'object' && 'code' in j) parsed = j as TsimResponse<T>
+            } catch {
+              /* non-JSON (HTML error page) */
+            }
+            resolve({
+              ok: status >= 200 && status < 300 && parsed?.code === TSIM_SUCCESS_CODE,
+              httpStatus: status,
+              code: parsed?.code ?? null,
+              message: parsed?.msg ?? (text ? text.slice(0, 200).replace(/\s+/g, ' ').trim() : ''),
+              result: parsed?.result ?? null,
+              parsedEnvelope: parsed !== null,
+              ms,
+            })
+          })
+        },
+      )
+      req.on('timeout', () => req.destroy(new Error(`timeout after ${timeoutMs}ms`)))
+      req.on('error', (err) =>
+        resolve({
+          ok: false, httpStatus: 0, code: null,
+          message: err instanceof Error ? err.message : String(err),
+          result: null, parsedEnvelope: false, ms: Date.now() - started,
+        }),
+      )
+      req.write(body)
+      req.end()
+    })
   }
 
   /* ── WRITE / fulfilment (used by 4H.2B; gated by TSIM_FULFILMENT_ENABLED) ── */
