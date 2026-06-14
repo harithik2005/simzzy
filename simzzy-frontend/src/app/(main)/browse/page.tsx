@@ -1,11 +1,12 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Zap, ChevronRight, Check } from 'lucide-react'
 import { MultiDestinationSearch, prettifySlug, type SelectedDest } from '@/components/catalog/MultiDestinationSearch'
 import { AllPlansRibbons } from '@/components/catalog/AllPlansRibbons'
+import { fetchDestinations } from '@/lib/catalog-client'
 
 /**
  * Browse (Phase 4G.5G) — comparison-focused, everything on one page:
@@ -25,6 +26,32 @@ function BrowseInner() {
   const router = useRouter()
   const [selected, setSelected] = useState<SelectedDest[]>(() => parseDestParam(sp.get('dest')))
   const slugs = selected.map((s) => s.slug)
+
+  // Free-text entry point (landing-page hero → /browse?q=Japan): resolve the
+  // query to its top matching destination and seed the selection, so the hero
+  // search behaves like the in-page destination search.
+  const qParam = sp.get('q')
+  const [resolvingQ, setResolvingQ] = useState(() => Boolean(qParam?.trim()) && parseDestParam(sp.get('dest')).length === 0)
+
+  useEffect(() => {
+    const q = qParam?.trim()
+    if (!q || selected.length > 0) { setResolvingQ(false); return }
+    const c = new AbortController()
+    setResolvingQ(true)
+    fetchDestinations({ q }, c.signal)
+      .then((dests) => {
+        const next = dests.length
+          ? [{ slug: dests[0].slug, name: dests[0].name, flag: dests[0].flag, regionName: dests[0].regionName }]
+          : []
+        setSelected(next)
+        router.replace(next.length ? `/browse?dest=${encodeURIComponent(next[0].slug)}` : '/browse', { scroll: false })
+      })
+      .catch((e) => { if ((e as Error).name !== 'AbortError') router.replace('/browse', { scroll: false }) })
+      .finally(() => setResolvingQ(false))
+    return () => c.abort()
+    // Resolve once for the incoming ?q= value; selection changes are handled by `update`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qParam])
 
   function update(next: SelectedDest[]) {
     setSelected(next)
@@ -84,6 +111,10 @@ function BrowseInner() {
               }))
             }
           />
+        ) : resolvingQ ? (
+          <div className="bg-card border border-border rounded-2xl p-10 flex items-center justify-center">
+            <span className="w-7 h-7 rounded-full border-2 border-accent-purple/30 border-t-accent-purple animate-spin" />
+          </div>
         ) : (
           <div className="bg-card border border-border rounded-2xl p-10 text-center">
             <p className="text-[40px] mb-3">🧭</p>

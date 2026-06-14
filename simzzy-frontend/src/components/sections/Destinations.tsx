@@ -4,15 +4,18 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { useInView } from '@/hooks/useInView'
 
+// `slug` is the catalog destination slug that browse resolves (server-side
+// `resolveSlug` maps aliases like usa→united-states, uk/europe→eu-49). Verified
+// against the live catalog so each card lands on real plans.
 const destinations = [
-  { flag: '🇮🇳', name: 'India',    from: '$1.99' },
-  { flag: '🇬🇧', name: 'UK',       from: '$3.99' },
-  { flag: '🇺🇸', name: 'USA',      from: '$4.99' },
-  { flag: '🇯🇵', name: 'Japan',    from: '$3.49' },
-  { flag: '🇹🇭', name: 'Thailand', from: '$2.49' },
-  { flag: '🇦🇪', name: 'UAE',      from: '$4.99' },
-  { flag: '🇪🇺', name: 'Europe',   from: '$5.99' },
-  { flag: '🌏', name: 'Global',    from: '$9.99' },
+  { flag: '🇮🇳', name: 'India',    from: '$1.99', slug: 'india' },
+  { flag: '🇬🇧', name: 'UK',       from: '$3.99', slug: 'uk' },
+  { flag: '🇺🇸', name: 'USA',      from: '$4.99', slug: 'usa' },
+  { flag: '🇯🇵', name: 'Japan',    from: '$3.49', slug: 'japan' },
+  { flag: '🇹🇭', name: 'Thailand', from: '$2.49', slug: 'thailand' },
+  { flag: '🇦🇪', name: 'UAE',      from: '$4.99', slug: 'united-arab-emirates' },
+  { flag: '🇪🇺', name: 'Europe',   from: '$5.99', slug: 'europe' },
+  { flag: '🌏', name: 'Global',    from: '$9.99', slug: 'global' },
 ]
 
 const delays = ['delay-1','delay-2','delay-3','delay-4','delay-5','delay-6','delay-1','delay-2'] as const
@@ -41,8 +44,9 @@ export default function Destinations() {
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {destinations.map((dest, i) => (
-            <div
+            <Link
               key={dest.name}
+              href={`/browse?dest=${encodeURIComponent(dest.slug)}`}
               className={cn(
                 'group relative bg-card border border-border rounded-[14px] p-5 text-center cursor-pointer transition-all duration-300 hover:bg-card-hover hover:border-border-hover hover:-translate-y-1 overflow-hidden',
                 inView ? `animate ${delays[i]}` : 'opacity-0',
@@ -55,7 +59,7 @@ export default function Destinations() {
               <div className="text-xs text-muted">
                 From <b className="text-secondary font-semibold">{dest.from}</b>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
