@@ -160,7 +160,7 @@ export function MultiDestinationSearch({
       {/* Dropdown — typeahead. When popularInline, never open just to show
           popular (the caller renders those inline), avoiding overlap. */}
       {open && (query.trim() || (!popularInline && value.length === 0)) && (
-        <div className="absolute z-30 left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
+        <div className="absolute z-50 left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
           {!query.trim() ? (
             <div className="p-3">
               <p className="text-[10px] font-mono uppercase tracking-widest text-muted mb-2 px-1">Popular destinations</p>

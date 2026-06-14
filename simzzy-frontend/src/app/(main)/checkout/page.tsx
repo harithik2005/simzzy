@@ -1,8 +1,10 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { QRCodeCanvas } from 'qrcode.react'
+import { Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useCurrency } from '@/context/currency'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
@@ -13,7 +15,7 @@ import {
   displayPriceUsd,
   type PlanDetailDto,
 } from '@/lib/plan-client'
-import { createOrder as apiCreateOrder, payOrder } from '@/lib/order-client'
+import { createOrder as apiCreateOrder, payOrder, fetchMyOrderDetail } from '@/lib/order-client'
 
 /* ─── Types ──────────────────────────────────────────────────────────────── */
 
@@ -42,6 +44,9 @@ const TEST_CARD_DISPLAY = {
 
 // TEST MODE is on for every provider except a live Cashfree integration.
 const TEST_MODE = (process.env.NEXT_PUBLIC_PAYMENT_PROVIDER ?? 'fake') !== 'cashfree'
+// The actual test-card credentials are NEVER shown to customers in production —
+// only in local development. Customers just see a "Sandbox Payment Mode" badge.
+const SHOW_TEST_CREDENTIALS = TEST_MODE && process.env.NODE_ENV !== 'production'
 
 const DIAL_ROWS = [
   ['1', '2', '3'],
@@ -350,66 +355,82 @@ function MiniResultPhone() {
   )
 }
 
-function QRCodeSVG() {
+/* ─── Real eSIM QR (fetched from the delivered order) ─────────────────────── */
+
+type EsimInfo = { lpa: string | null; qrUrl: string | null; iccid: string | null; smdp: string | null }
+
+function EsimQrSection({ orderId, email }: { orderId: string | null; email: string }) {
+  // 'loading' until fetched; null = no eSIM yet (e.g. dummy fulfilment); object = ready.
+  const [esim, setEsim] = useState<EsimInfo | null | 'loading'>('loading')
+  const qrWrapRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!orderId) { setEsim(null); return }
+    let active = true
+    fetchMyOrderDetail(orderId)
+      .then((o) => {
+        if (!active) return
+        const e = o.items.find((i) => i.esim?.qrCodeData || i.esim?.activationCode || i.esim?.qrCodeUrl)?.esim
+        setEsim(e ? { lpa: e.qrCodeData ?? e.activationCode, qrUrl: e.qrCodeUrl, iccid: e.iccid, smdp: e.smdpAddress } : null)
+      })
+      .catch(() => { if (active) setEsim(null) })
+    return () => { active = false }
+  }, [orderId])
+
+  function downloadQr() {
+    const canvas = qrWrapRef.current?.querySelector('canvas')
+    if (!canvas) return
+    const a = document.createElement('a')
+    a.href = canvas.toDataURL('image/png')
+    a.download = `simzzy-esim-${orderId ?? 'qr'}.png`
+    a.click()
+  }
+
+  // Loading
+  if (esim === 'loading') {
+    return (
+      <div className="bg-card border border-border rounded-[14px] p-7 mb-6 flex items-center justify-center min-h-[220px]">
+        <span className="w-8 h-8 rounded-full border-2 border-accent-purple/30 border-t-accent-purple animate-spin" />
+      </div>
+    )
+  }
+
+  // eSIM not provisioned yet (dummy fulfilment, or provider still preparing).
+  if (!esim || !(esim.lpa || esim.qrUrl)) {
+    return (
+      <div className="bg-card border border-border rounded-[14px] p-7 mb-6 text-center" style={{ animation: 'scaleIn 0.4s ease 0.2s both' }}>
+        <div className="text-[34px] mb-3">📨</div>
+        <p className="text-[14px] font-semibold mb-1">Your eSIM is being prepared</p>
+        <p className="text-[13px] text-muted leading-relaxed">
+          The QR code will be emailed to <strong className="text-secondary">{email}</strong> and will appear in your
+          {orderId ? <Link href={`/dashboard/orders/${orderId}`} className="text-accent-pink font-semibold hover:underline"> order details</Link> : ' dashboard'} shortly.
+        </p>
+      </div>
+    )
+  }
+
   return (
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width={140} height={140}>
-      <rect width="100" height="100" fill="#fff" />
-      <g fill="#1a0040">
-        <rect x="5" y="5" width="25" height="25" rx="3" />
-        <rect x="70" y="5" width="25" height="25" rx="3" />
-        <rect x="5" y="70" width="25" height="25" rx="3" />
-        <rect x="10" y="10" width="15" height="15" rx="2" fill="#fff" />
-        <rect x="75" y="10" width="15" height="15" rx="2" fill="#fff" />
-        <rect x="10" y="75" width="15" height="15" rx="2" fill="#fff" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
-        <rect x="79" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="79" width="7" height="7" rx="1" />
-        <rect x="35" y="5" width="5" height="5" />
-        <rect x="45" y="5" width="5" height="5" />
-        <rect x="55" y="5" width="5" height="5" />
-        <rect x="35" y="15" width="5" height="5" />
-        <rect x="50" y="12" width="5" height="5" />
-        <rect x="35" y="25" width="5" height="5" />
-        <rect x="45" y="22" width="5" height="5" />
-        <rect x="55" y="18" width="5" height="5" />
-        <rect x="60" y="28" width="5" height="5" />
-        <rect x="5" y="35" width="5" height="5" />
-        <rect x="15" y="40" width="5" height="5" />
-        <rect x="25" y="35" width="5" height="5" />
-        <rect x="5" y="50" width="5" height="5" />
-        <rect x="18" y="52" width="5" height="5" />
-        <rect x="5" y="60" width="5" height="5" />
-        <rect x="28" y="58" width="5" height="5" />
-        <rect x="35" y="35" width="5" height="5" />
-        <rect x="42" y="40" width="5" height="5" />
-        <rect x="50" y="35" width="5" height="5" />
-        <rect x="58" y="42" width="5" height="5" />
-        <rect x="35" y="50" width="5" height="5" />
-        <rect x="48" y="52" width="5" height="5" />
-        <rect x="55" y="55" width="5" height="5" />
-        <rect x="38" y="58" width="5" height="5" />
-        <rect x="45" y="62" width="5" height="5" />
-        <rect x="62" y="60" width="5" height="5" />
-        <rect x="72" y="35" width="5" height="5" />
-        <rect x="80" y="40" width="5" height="5" />
-        <rect x="90" y="38" width="5" height="5" />
-        <rect x="70" y="48" width="5" height="5" />
-        <rect x="82" y="52" width="5" height="5" />
-        <rect x="90" y="55" width="5" height="5" />
-        <rect x="75" y="60" width="5" height="5" />
-        <rect x="85" y="65" width="5" height="5" />
-        <rect x="70" y="72" width="25" height="23" rx="3" fill="none" stroke="#1a0040" strokeWidth="2" />
-        <rect x="78" y="80" width="9" height="9" rx="1" />
-        <rect x="38" y="72" width="5" height="5" />
-        <rect x="50" y="75" width="5" height="5" />
-        <rect x="58" y="80" width="5" height="5" />
-        <rect x="42" y="85" width="5" height="5" />
-        <rect x="55" y="90" width="5" height="5" />
-        <rect x="35" y="90" width="5" height="5" />
-        <rect x="48" y="88" width="5" height="5" />
-        <rect x="60" y="70" width="5" height="5" />
-      </g>
-    </svg>
+    <div className="bg-card border border-border rounded-[14px] p-7 mb-6" style={{ animation: 'scaleIn 0.4s ease 0.2s both' }}>
+      <div ref={qrWrapRef} className="w-[188px] h-[188px] rounded-xl bg-white flex items-center justify-center mx-auto mb-4 overflow-hidden p-2">
+        {esim.lpa ? (
+          <QRCodeCanvas value={esim.lpa} size={168} level="M" />
+        ) : esim.qrUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={esim.qrUrl} alt="eSIM QR code" width={168} height={168} />
+        ) : null}
+      </div>
+      <p className="text-[13px] text-secondary mb-3">Scan this QR code to install your eSIM</p>
+
+      {esim.lpa && (
+        <button
+          onClick={downloadQr}
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border-hover bg-card text-secondary text-[13px] font-semibold transition-all hover:bg-card-hover hover:text-primary"
+        >
+          <Download className="w-4 h-4" /> Download QR
+        </button>
+      )}
+      <p className="text-[12px] text-muted mt-3">Also sent to {email}</p>
+    </div>
   )
 }
 
@@ -850,7 +871,7 @@ function StepPayment({
           {TEST_MODE && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[10px] font-bold font-mono uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              Sandbox · Test Mode
+              Sandbox Payment Mode
             </span>
           )}
         </div>
@@ -864,8 +885,9 @@ function StepPayment({
           </div>
         </div>
 
-        {/* Collapsible sandbox test-card panel */}
-        {TEST_MODE && (
+        {/* Collapsible sandbox test-card panel — DEV ONLY, never shown to
+            customers in production. */}
+        {SHOW_TEST_CREDENTIALS && (
           <div className="mb-5 rounded-[14px] border border-amber-400/25 bg-amber-400/[0.04] overflow-hidden">
             <button
               type="button"
@@ -1086,17 +1108,8 @@ function StepConfirmation({
         <strong className="text-primary">{displayEmail}</strong>
       </p>
 
-      {/* QR section */}
-      <div
-        className="bg-card border border-border rounded-[14px] p-7 mb-6"
-        style={{ animation: 'scaleIn 0.4s ease 0.3s both', opacity: 0 }}
-      >
-        <div className="w-[180px] h-[180px] rounded-xl bg-white flex items-center justify-center mx-auto mb-4 overflow-hidden">
-          <QRCodeSVG />
-        </div>
-        <p className="text-[13px] text-secondary mb-1">Scan this QR code to install your eSIM</p>
-        <p className="text-[14px] font-semibold text-accent-green">Also sent to {displayEmail}</p>
-      </div>
+      {/* QR section — real eSIM from the delivered order */}
+      <EsimQrSection orderId={order.orderId} email={displayEmail} />
 
       {/* Order details */}
       <div
