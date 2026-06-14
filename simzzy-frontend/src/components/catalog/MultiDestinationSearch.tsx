@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils'
 
 export type SelectedDest = { slug: string; name: string; flag: string | null; regionName: string }
 
-const POPULAR: SelectedDest[] = [
+export const POPULAR: SelectedDest[] = [
   { slug: 'japan', name: 'Japan', flag: '🇯🇵', regionName: 'East Asia' },
   { slug: 'usa', name: 'USA', flag: '🇺🇸', regionName: 'North America' },
   { slug: 'europe', name: 'Europe', flag: '🇪🇺', regionName: 'Europe' },
@@ -41,11 +41,16 @@ export function MultiDestinationSearch({
   onChange,
   placeholder = 'Search countries or regions — e.g. Japan, Italy, Europe',
   autoFocus,
+  popularInline = false,
 }: {
   value: SelectedDest[]
   onChange: (next: SelectedDest[]) => void
   placeholder?: string
   autoFocus?: boolean
+  /** When true the dropdown only opens for typeahead results; the caller is
+   *  expected to render popular destinations inline (no floating panel that
+   *  could overlap content below). */
+  popularInline?: boolean
 }) {
   const [query, setQuery] = useState('')
   const debounced = useDebounce(query, 250)
@@ -106,7 +111,7 @@ export function MultiDestinationSearch({
       {/* Token input */}
       <div
         onClick={() => { setOpen(true); inputRef.current?.focus() }}
-        className="flex flex-wrap items-center gap-2 min-h-[52px] bg-card border border-border rounded-2xl px-3 py-2.5 focus-within:border-border-hover transition-colors cursor-text"
+        className="flex flex-wrap items-center gap-2 min-h-[58px] bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl px-3.5 py-2.5 transition-all cursor-text focus-within:border-accent-purple/60 focus-within:bg-white/[0.06] focus-within:shadow-[0_0_0_4px_rgba(147,51,234,0.12)]"
       >
         <Search size={17} className="text-muted flex-shrink-0 ml-1" />
         {value.map((v) => (
@@ -152,8 +157,9 @@ export function MultiDestinationSearch({
         )}
       </div>
 
-      {/* Dropdown */}
-      {open && (query.trim() || value.length === 0) && (
+      {/* Dropdown — typeahead. When popularInline, never open just to show
+          popular (the caller renders those inline), avoiding overlap. */}
+      {open && (query.trim() || (!popularInline && value.length === 0)) && (
         <div className="absolute z-30 left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
           {!query.trim() ? (
             <div className="p-3">
