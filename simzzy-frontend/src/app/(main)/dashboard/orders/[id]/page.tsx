@@ -1,10 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, Circle, XCircle, Copy } from 'lucide-react'
-import { QRCodeSVG } from 'qrcode.react'
+import { ArrowLeft, CheckCircle2, Circle, XCircle, Copy, Download } from 'lucide-react'
+import { QRCodeCanvas } from 'qrcode.react'
 import { cn } from '@/lib/utils'
 import { toast } from '@/store/toast'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
@@ -244,19 +244,39 @@ function PageBody() {
 
 function EsimCard({ item }: { item: OrderItem }) {
   const esim = item.esim
+  const qrWrapRef = useRef<HTMLDivElement>(null)
   if (!esim) return null
   const lpa = esim.qrCodeData ?? esim.activationCode
 
+  function downloadQr() {
+    const canvas = qrWrapRef.current?.querySelector('canvas')
+    if (!canvas) return
+    const a = document.createElement('a')
+    a.href = canvas.toDataURL('image/png')
+    a.download = `simzzy-esim-${item.id}.png`
+    a.click()
+  }
+
   return (
     <div className="flex flex-col sm:flex-row gap-5 items-start">
-      <div className="bg-white rounded-xl p-3 shrink-0 mx-auto sm:mx-0">
-        {lpa ? (
-          <QRCodeSVG value={lpa} size={168} level="M" />
-        ) : esim.qrCodeUrl ? (
-          <a href={esim.qrCodeUrl} target="_blank" rel="noopener noreferrer" className="text-[12px] text-accent-purple underline">
-            Open QR image
-          </a>
-        ) : null}
+      <div className="shrink-0 mx-auto sm:mx-0 flex flex-col items-center gap-2">
+        <div ref={qrWrapRef} className="bg-white rounded-xl p-3">
+          {lpa ? (
+            <QRCodeCanvas value={lpa} size={168} level="M" />
+          ) : esim.qrCodeUrl ? (
+            <a href={esim.qrCodeUrl} target="_blank" rel="noopener noreferrer" className="text-[12px] text-accent-purple underline">
+              Open QR image
+            </a>
+          ) : null}
+        </div>
+        {lpa && (
+          <button
+            onClick={downloadQr}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-hover bg-card text-secondary text-[12px] font-semibold transition-all hover:bg-card-hover hover:text-primary"
+          >
+            <Download className="w-3.5 h-3.5" /> Download QR
+          </button>
+        )}
       </div>
       <div className="flex-1 min-w-0 w-full">
         <p className="text-[14px] font-semibold mb-1">{item.planName}</p>
