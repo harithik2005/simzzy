@@ -16,7 +16,10 @@ export function Navbar() {
 
   function handleLogout() {
     setMobileOpen(false)
-    signOut({ callbackUrl: '/' })
+    // redirect:false → don't let NextAuth compute an absolute URL (which falls
+    // back to localhost when AUTH_URL is unset). Redirect via the browser's
+    // real origin so logout always lands on the production domain.
+    signOut({ redirect: false }).then(() => { window.location.href = '/' })
   }
 
   return (

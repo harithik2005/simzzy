@@ -1,5 +1,9 @@
 import type { NavLink, FooterSection } from './types'
 
+/** Canonical public origin (no trailing slash). Env-driven so staging/preview
+ *  deployments don't hardcode the production domain. */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://simzzy.shop').replace(/\/+$/, '')
+
 export const NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Browse eSIMs', href: '/browse' },

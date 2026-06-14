@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/constants'
 
-const BASE_URL = 'https://simzzy.com'
+const BASE_URL = SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()

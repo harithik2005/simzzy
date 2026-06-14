@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Outfit, Space_Mono } from 'next/font/google'
 import '../styles/globals.css'
 import { Providers } from './providers'
+import { SITE_URL } from '@/lib/constants'
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -14,7 +15,6 @@ const spaceMono = Space_Mono({
   subsets: ['latin'],
 })
 
-const SITE_URL = 'https://simzzy.com'
 const SITE_DESC =
   'Get instant eSIM data plans for travel. Connect to 4G/5G networks in 150+ countries with no roaming fees.'
 

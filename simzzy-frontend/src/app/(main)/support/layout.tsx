@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Help & Support · Simzzy',
     description: 'Answers about eSIM installation, payments, coverage, and your account.',
-    url: 'https://simzzy.com/support',
+    url: '/support',
   },
 }
 

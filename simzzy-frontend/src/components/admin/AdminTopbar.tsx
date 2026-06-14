@@ -33,7 +33,8 @@ export default function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
 
   function handleLogout() {
     setProfileOpen(false)
-    signOut({ callbackUrl: '/login' })
+    // Redirect via the browser origin so logout never lands on localhost.
+    signOut({ redirect: false }).then(() => { window.location.href = '/login' })
   }
 
   // Close dropdowns on outside click

@@ -39,7 +39,8 @@ export default function AdminSidebar({ mobileOpen, onClose }: AdminSidebarProps)
 
   function handleLogout() {
     onClose()
-    signOut({ callbackUrl: '/login' })
+    // Redirect via the browser origin so logout never lands on localhost.
+    signOut({ redirect: false }).then(() => { window.location.href = '/login' })
   }
 
   return (
