@@ -83,13 +83,22 @@ export async function startDummyPayment(args: StartPaymentArgs) {
     reason: 'Dummy payment intent created',
   })
 
-  return { paymentId: payment.id, status: PaymentStatus.PENDING }
+  // amount/currency are returned so the caller can feed the gateway's
+  // authorize() without re-querying the order.
+  return {
+    paymentId: payment.id,
+    status: PaymentStatus.PENDING,
+    amount: Number(order.localTotal),
+    currency: order.currency,
+  }
 }
 
 export type ConfirmPaymentArgs = {
   paymentId: string
   succeed?: boolean // default true; false simulates a declined payment
   failureReason?: string
+  /** Gateway transaction reference, stored as `Payment.gatewayPaymentId`. */
+  transactionRef?: string
   actor: { actorId: string | null; ip?: string | null; userAgent?: string | null }
   /**
    * When true, the success path stops at ORDER_SUBMITTED instead of walking the
@@ -116,7 +125,8 @@ export async function confirmDummyPayment(args: ConfirmPaymentArgs) {
       data: {
         status: PaymentStatus.FAILED,
         failureReason: args.failureReason ?? 'Dummy provider declined',
-        events: { create: { eventType: 'dummy.failed', payload: { reason: args.failureReason ?? 'declined' } } },
+        ...(args.transactionRef ? { gatewayPaymentId: args.transactionRef } : {}),
+        events: { create: { eventType: 'dummy.failed', payload: { reason: args.failureReason ?? 'declined', transactionRef: args.transactionRef ?? null } } },
       },
     })
     await transitionStatus(payment.orderId, OrderStatus.FAILED, {
@@ -136,7 +146,8 @@ export async function confirmDummyPayment(args: ConfirmPaymentArgs) {
     data: {
       status: PaymentStatus.SUCCESS,
       paidAt: new Date(),
-      events: { create: { eventType: 'dummy.captured', payload: { amount: Number(payment.amount) } } },
+      ...(args.transactionRef ? { gatewayPaymentId: args.transactionRef } : {}),
+      events: { create: { eventType: 'dummy.captured', payload: { amount: Number(payment.amount), transactionRef: args.transactionRef ?? null } } },
     },
   })
 

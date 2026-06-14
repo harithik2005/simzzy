@@ -27,18 +27,21 @@ type Order = {
   orderNumber: string
 }
 
-const PAYMENT_METHOD_KEYS = ['card', 'upi', 'netbanking', 'wallet'] as const
-
 /* ─── Static data ────────────────────────────────────────────────────────── */
 
 const VALID_PROMO = 'TRAVEL10'
 
-const PAYMENT_METHODS = [
-  { icon: '💳', label: 'Credit / Debit Card', sub: 'Visa, Mastercard, Rupay' },
-  { icon: '🏦', label: 'UPI', sub: 'GPay, PhonePe, Paytm, BHIM' },
-  { icon: '🌐', label: 'Net Banking', sub: 'All major banks' },
-  { icon: '📱', label: 'Wallet', sub: 'Paytm, Amazon Pay, Mobikwik' },
-]
+// Sandbox card credentials — mirrors the backend FakePaymentProvider TEST_CARD.
+// Kept as a plain client constant so the checkout bundle never imports server code.
+const TEST_CARD_DISPLAY = {
+  number: '1234 4321 1234 4321',
+  name: 'SIMZZY',
+  expiry: '12/30',
+  cvv: '009',
+}
+
+// TEST MODE is on for every provider except a live Cashfree integration.
+const TEST_MODE = (process.env.NEXT_PUBLIC_PAYMENT_PROVIDER ?? 'fake') !== 'cashfree'
 
 const DIAL_ROWS = [
   ['1', '2', '3'],
@@ -760,8 +763,6 @@ function StepPayment({
   name,
   phone,
   promoApplied,
-  selectedPayment,
-  setSelectedPayment,
   onPaid,
   onBack,
 }: {
@@ -770,31 +771,39 @@ function StepPayment({
   name: string
   phone: string
   promoApplied: boolean
-  selectedPayment: number
-  setSelectedPayment: (i: number) => void
   onPaid: (orderId: string, orderNumber: string) => void
   onBack: () => void
 }) {
   const { code: currencyCode, format } = useCurrency()
   const { total, discount } = computeTotals(displayPriceUsd(order.plan), promoApplied)
   const [processing, setProcessing] = useState(false)
+  const [showTestPanel, setShowTestPanel] = useState(false)
 
   const [cardNumber, setCardNumber] = useState('')
   const [cardName, setCardName] = useState('')
   const [expiry, setExpiry] = useState('')
   const [cvv, setCvv] = useState('')
   const [cardError, setCardError] = useState('')
+  const [failed, setFailed] = useState(false)
 
-  const isCard = selectedPayment === 0
+  function fillTestCard() {
+    setCardNumber(TEST_CARD_DISPLAY.number)
+    setCardName(TEST_CARD_DISPLAY.name)
+    setExpiry(TEST_CARD_DISPLAY.expiry)
+    setCvv(TEST_CARD_DISPLAY.cvv)
+    setCardError('')
+    setFailed(false)
+  }
 
   async function pay() {
-    if (isCard) {
-      if (cardNumber.replace(/\s/g, '').length < 16 || expiry.length < 5 || cvv.length < 3 || !cardName.trim()) {
-        setCardError('Please complete all card fields.')
-        return
-      }
+    // Light shape check — the server (gateway) is authoritative on success.
+    if (cardNumber.replace(/\s/g, '').length < 16 || expiry.length < 5 || cvv.length < 3 || !cardName.trim()) {
+      setFailed(false)
+      setCardError('Please complete all card fields.')
+      return
     }
     setCardError('')
+    setFailed(false)
     setProcessing(true)
     try {
       // 1. Create the order (server takes a pricing snapshot + locks fx rate).
@@ -806,16 +815,25 @@ function StepPayment({
         currency: currencyCode,
         discountUsd: discount,
       })
-      // 2. Drive the dummy payment intent + capture in one round-trip.
-      const method = PAYMENT_METHOD_KEYS[selectedPayment] ?? 'card'
-      const result = await payOrder(created.id, { method, succeed: true })
+      // 2. Authorise + capture via the active gateway in one round-trip.
+      const result = await payOrder(created.id, {
+        method: 'card',
+        card: { number: cardNumber, name: cardName, expiry, cvv },
+      })
       if (result.paymentStatus !== 'SUCCESS') {
-        throw new Error('Payment was declined by the dummy gateway')
+        const msg = result.failureReason || 'Payment was declined. Check your card details and try again.'
+        setFailed(true)
+        setCardError(msg)
+        toast.error('Payment failed', msg)
+        return
       }
       toast.success('Payment successful', `${format(total)} captured`)
       onPaid(created.id, created.orderNumber)
     } catch (err) {
-      toast.error('Payment failed', (err as Error).message)
+      const msg = (err as Error).message || 'Something went wrong. Please try again.'
+      setFailed(true)
+      setCardError(msg)
+      toast.error('Payment failed', msg)
     } finally {
       setProcessing(false)
     }
@@ -824,93 +842,122 @@ function StepPayment({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6">
       <Panel>
-        <PanelTitle>Payment Method</PanelTitle>
-
-        <div className="flex flex-col gap-2.5 mb-5">
-          {PAYMENT_METHODS.map((method, i) => (
-            <div
-              key={method.label}
-              onClick={() => !processing && setSelectedPayment(i)}
-              className={cn(
-                'flex items-center gap-3.5 px-[18px] py-[18px] border rounded-[14px] cursor-pointer transition-all duration-200',
-                selectedPayment === i
-                  ? 'border-accent-purple bg-[rgba(147,51,234,0.08)]'
-                  : 'border-border hover:border-border-hover hover:bg-card-hover',
-              )}
-            >
-              <div
-                className={cn(
-                  'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-200',
-                  selectedPayment === i ? 'border-accent-purple' : 'border-border-hover',
-                )}
-              >
-                {selectedPayment === i && (
-                  <div className="w-2.5 h-2.5 rounded-full bg-accent-purple" />
-                )}
-              </div>
-              <span className="text-2xl">{method.icon}</span>
-              <div>
-                <h4 className="text-[14px] font-semibold">{method.label}</h4>
-                <p className="text-[11px] text-muted">{method.sub}</p>
-              </div>
-            </div>
-          ))}
+        {/* Header + TEST MODE badge */}
+        <div className="flex items-center justify-between gap-3 mb-5">
+          <p className="font-mono text-[11px] font-bold tracking-[2px] uppercase text-accent-pink">
+            Payment Method
+          </p>
+          {TEST_MODE && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[10px] font-bold font-mono uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              Sandbox · Test Mode
+            </span>
+          )}
         </div>
 
-        {/* Dummy card form */}
-        {isCard && (
-          <div className="flex flex-col gap-3.5 mb-5" style={{ animation: 'fadeIn 0.25s ease' }}>
-            <div>
-              <label className="block text-[12px] font-semibold text-secondary mb-1.5">Card number</label>
-              <input
-                inputMode="numeric"
-                value={cardNumber}
-                onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                placeholder="4242 4242 4242 4242"
-                className={cn(INPUT_BASE, 'font-mono tracking-wider')}
-              />
-            </div>
-            <div>
-              <label className="block text-[12px] font-semibold text-secondary mb-1.5">Name on card</label>
-              <input
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
-                placeholder="John Doe"
-                className={INPUT_BASE}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[12px] font-semibold text-secondary mb-1.5">Expiry</label>
-                <input
-                  inputMode="numeric"
-                  value={expiry}
-                  onChange={(e) => setExpiry(formatExpiry(e.target.value))}
-                  placeholder="MM/YY"
-                  className={cn(INPUT_BASE, 'font-mono')}
-                />
+        {/* Single payment method — Card only */}
+        <div className="flex items-center gap-3.5 px-[18px] py-[18px] border border-accent-purple bg-[rgba(147,51,234,0.08)] rounded-[14px] mb-4">
+          <span className="text-2xl">💳</span>
+          <div>
+            <h4 className="text-[14px] font-semibold">Credit / Debit Card</h4>
+            <p className="text-[11px] text-muted">Visa, Mastercard, Rupay</p>
+          </div>
+        </div>
+
+        {/* Collapsible sandbox test-card panel */}
+        {TEST_MODE && (
+          <div className="mb-5 rounded-[14px] border border-amber-400/25 bg-amber-400/[0.04] overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setShowTestPanel((v) => !v)}
+              className="w-full flex items-center justify-between px-4 py-3 text-left transition-colors hover:bg-amber-400/[0.06]"
+            >
+              <span className="flex items-center gap-2 text-[12.5px] font-semibold text-amber-200">
+                🧪 Sandbox test card
+              </span>
+              <span className="text-[11px] font-medium text-amber-300/80">{showTestPanel ? 'Hide' : 'Show'}</span>
+            </button>
+            {showTestPanel && (
+              <div className="px-4 pb-4 pt-1 border-t border-amber-400/15" style={{ animation: 'fadeIn 0.2s ease' }}>
+                <p className="text-[11px] text-muted my-3">Use these exact details — any change is declined.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                  {[
+                    ['Card number', TEST_CARD_DISPLAY.number],
+                    ['Name', TEST_CARD_DISPLAY.name],
+                    ['Expiry', TEST_CARD_DISPLAY.expiry],
+                    ['CVV', TEST_CARD_DISPLAY.cvv],
+                  ].map(([label, value]) => (
+                    <div key={label} className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-black/20 border border-white/5">
+                      <span className="text-[10px] uppercase tracking-wider text-muted">{label}</span>
+                      <span className="text-[12px] font-mono font-semibold text-secondary">{value}</span>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={fillTestCard}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-amber-400/30 bg-amber-400/10 text-amber-200 text-[12px] font-semibold transition-colors hover:bg-amber-400/15"
+                >
+                  Use test card →
+                </button>
               </div>
-              <div>
-                <label className="block text-[12px] font-semibold text-secondary mb-1.5">CVV</label>
-                <input
-                  inputMode="numeric"
-                  value={cvv}
-                  onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                  placeholder="123"
-                  className={cn(INPUT_BASE, 'font-mono')}
-                />
-              </div>
-            </div>
-            <p className="text-[11px] text-muted">
-              Test mode — use any numbers. No real card is charged.
-            </p>
-            {cardError && <p className="text-[12px] text-accent-pink">{cardError}</p>}
+            )}
           </div>
         )}
 
-        {!isCard && (
-          <div className="mb-5 px-4 py-4 rounded-[14px] border border-border bg-white/[0.02] text-[12px] text-muted">
-            You&apos;ll be redirected to a secure {PAYMENT_METHODS[selectedPayment].label} screen to complete payment.
+        {/* Card form */}
+        <div className="flex flex-col gap-3.5 mb-5" style={{ animation: 'fadeIn 0.25s ease' }}>
+          <div>
+            <label className="block text-[12px] font-semibold text-secondary mb-1.5">Card number</label>
+            <input
+              inputMode="numeric"
+              value={cardNumber}
+              onChange={(e) => { setCardNumber(formatCardNumber(e.target.value)); setFailed(false) }}
+              placeholder="1234 4321 1234 4321"
+              className={cn(INPUT_BASE, 'font-mono tracking-wider', failed && 'border-accent-pink focus:border-accent-pink')}
+            />
+          </div>
+          <div>
+            <label className="block text-[12px] font-semibold text-secondary mb-1.5">Name on card</label>
+            <input
+              value={cardName}
+              onChange={(e) => { setCardName(e.target.value); setFailed(false) }}
+              placeholder="SIMZZY"
+              className={cn(INPUT_BASE, failed && 'border-accent-pink focus:border-accent-pink')}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-[12px] font-semibold text-secondary mb-1.5">Expiry</label>
+              <input
+                inputMode="numeric"
+                value={expiry}
+                onChange={(e) => { setExpiry(formatExpiry(e.target.value)); setFailed(false) }}
+                placeholder="MM/YY"
+                className={cn(INPUT_BASE, 'font-mono', failed && 'border-accent-pink focus:border-accent-pink')}
+              />
+            </div>
+            <div>
+              <label className="block text-[12px] font-semibold text-secondary mb-1.5">CVV</label>
+              <input
+                inputMode="numeric"
+                value={cvv}
+                onChange={(e) => { setCvv(e.target.value.replace(/\D/g, '').slice(0, 4)); setFailed(false) }}
+                placeholder="123"
+                className={cn(INPUT_BASE, 'font-mono', failed && 'border-accent-pink focus:border-accent-pink')}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Error / failed state */}
+        {cardError && (
+          <div className="mb-4 px-4 py-3 rounded-[14px] border border-accent-pink/40 bg-[rgba(255,45,120,0.08)] flex items-start gap-2.5" style={{ animation: 'fadeIn 0.2s ease' }}>
+            <span className="text-accent-pink text-[15px] leading-none mt-0.5">⚠</span>
+            <div>
+              <p className="text-[13px] font-semibold text-accent-pink">{failed ? 'Payment failed' : 'Check your details'}</p>
+              <p className="text-[12px] text-secondary mt-0.5">{cardError}</p>
+            </div>
           </div>
         )}
 
@@ -924,6 +971,8 @@ function StepPayment({
               <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
               Processing payment…
             </>
+          ) : failed ? (
+            <>Retry — Pay {format(total)} →</>
           ) : (
             <>Pay {format(total)} →</>
           )}
@@ -937,10 +986,14 @@ function StepPayment({
         </button>
 
         <div className="mt-4 text-center p-5 border border-border rounded-[14px] bg-[rgba(34,197,94,0.04)]">
-          <div className="text-[28px] mb-2">🛡️</div>
-          <h4 className="text-[14px] font-semibold text-accent-green mb-1">Secured by EximPe</h4>
+          <div className="text-[28px] mb-2">{TEST_MODE ? '🧪' : '🛡️'}</div>
+          <h4 className="text-[14px] font-semibold text-accent-green mb-1">
+            {TEST_MODE ? 'Sandbox payment' : 'Secure payment'}
+          </h4>
           <p className="text-[11px] text-muted leading-relaxed">
-            Your payment info is encrypted and processed securely. We never store your card details.
+            {TEST_MODE
+              ? 'No real card is charged. This is a test gateway for end-to-end order testing.'
+              : 'Your payment info is encrypted and processed securely. We never store your card details.'}
           </p>
         </div>
       </Panel>
@@ -1167,7 +1220,6 @@ function CheckoutInner() {
   const [promoApplied, setPromoApplied] = useState(false)
   const [promoMsg, setPromoMsg] = useState('')
   const [deviceChecked, setDeviceChecked] = useState(false)
-  const [selectedPayment, setSelectedPayment] = useState(0)
 
   // Payment success → confirmation.
   function handlePaid(realId: string, realNumber: string) {
@@ -1292,8 +1344,6 @@ function CheckoutInner() {
               name={name}
               phone={phone}
               promoApplied={promoApplied}
-              selectedPayment={selectedPayment}
-              setSelectedPayment={setSelectedPayment}
               onPaid={handlePaid}
               onBack={() => goToStep(1)}
             />

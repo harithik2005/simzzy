@@ -36,11 +36,20 @@ export function createOrder(payload: {
   }).then((r) => r.order)
 }
 
-export function payOrder(orderId: string, payload: { method?: string; succeed?: boolean } = {}) {
-  return jsonFetch<{ paymentId: string; paymentStatus: string; orderStatus: string }>(
-    `/api/orders/${orderId}/pay`,
-    { method: 'POST', body: JSON.stringify(payload) },
-  )
+export type CardInput = { number: string; name: string; expiry: string; cvv: string }
+
+export function payOrder(
+  orderId: string,
+  payload: { method?: string; card?: CardInput } = {},
+) {
+  return jsonFetch<{
+    paymentId: string
+    paymentStatus: string
+    orderStatus: string
+    transactionRef?: string
+    failureReason?: string
+    failureCode?: string
+  }>(`/api/orders/${orderId}/pay`, { method: 'POST', body: JSON.stringify(payload) })
 }
 
 export function cancelOrder(orderId: string) {

@@ -255,13 +255,24 @@ export type {
   ActorContext as OrderActorContext,
 } from './src/orders'
 
-/* ─── Payments (dummy provider for now) ──────────────────────────────────── */
+/* ─── Payments (gateway abstraction + sandbox provider) ──────────────────── */
 
 export {
   startDummyPayment,
   confirmDummyPayment,
+  getPaymentGateway,
+  getPaymentProviderName,
+  FakePaymentProvider,
+  TEST_CARD,
   PaymentNotFoundError,
   PaymentStateError,
+} from './src/payments'
+export type {
+  PaymentGateway,
+  PaymentProviderName,
+  CardDetails,
+  AuthorizeInput,
+  AuthorizeResult,
 } from './src/payments'
 
 /* ─── tSIM provider (read-only verification — Phase 4H.2A) ───────────────── */
