@@ -7,8 +7,7 @@ import {
   Field,
   PasswordField,
   SubmitButton,
-  SocialDivider,
-  SocialButtons,
+  FormError,
 } from '@/components/auth/AuthForm'
 import { signIn } from 'next-auth/react'
 import { toast } from '@/store/toast'
@@ -29,6 +28,7 @@ export default function SignupPage() {
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [confirmError, setConfirmError] = useState('')
+  const [formError, setFormError] = useState('')
 
   const formValid =
     name.trim().length >= 2 &&
@@ -39,31 +39,50 @@ export default function SignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    // Guard against double submission and invalid state.
     if (!formValid || loading) return
+    setFormError('')
     setLoading(true)
 
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name.trim(), email, password }),
-    })
+    try {
+      // 1. Create the account.
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email, password }),
+      })
 
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        const msg = data?.error ?? 'Could not create your account. Please try again.'
+        // Surface a known conflict on the email field too.
+        if (res.status === 409) setEmailError('An account with this email already exists')
+        setFormError(msg)
+        toast.error('Could not create account', msg)
+        return
+      }
+
+      // 2. Account created — sign in immediately.
+      const signInRes = await signIn('credentials', { email, password, redirect: false })
+      if (signInRes?.error) {
+        // Account exists but auto sign-in failed — send them to login.
+        toast.success('Account created', 'Please sign in to continue')
+        window.location.assign('/login')
+        return
+      }
+
+      // 3. Success — full reload so the session + navbar are correct immediately.
+      toast.success('Account created', 'Welcome to Simzzy!')
+      window.location.assign('/dashboard')
+    } catch {
+      // Network/timeout/unexpected error — never leave the button stuck.
+      const msg = 'Network error — please check your connection and try again.'
+      setFormError(msg)
+      toast.error('Something went wrong', msg)
+    } finally {
+      // Reset loading unless we've already navigated away on success.
       setLoading(false)
-      toast.error('Could not create account', data?.error ?? 'Please try again')
-      return
     }
-
-    // Account created — sign in immediately.
-    const signInRes = await signIn('credentials', { email, password, redirect: false })
-    if (signInRes?.error) {
-      toast.success('Account created', 'Please sign in to continue')
-      window.location.assign('/login')
-      return
-    }
-    // Full reload so the session + navbar are correct immediately.
-    window.location.assign('/dashboard')
   }
 
   return (
@@ -72,26 +91,32 @@ export default function SignupPage() {
       title="Get started for free"
       subtitle="Join 500K+ travelers worldwide"
     >
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate aria-busy={loading}>
+        <FormError message={formError} />
+
         <Field
           label="Full name"
           value={name}
-          onChange={(v) => { setName(v); setNameError('') }}
+          onChange={(v) => { setName(v); setNameError(''); setFormError('') }}
           onBlur={() => setNameError(name && name.trim().length < 2 ? 'Please enter your full name' : '')}
           placeholder="John Doe"
           autoComplete="name"
           error={nameError}
+          required
+          disabled={loading}
         />
 
         <Field
           label="Email address"
           type="email"
           value={email}
-          onChange={(v) => { setEmail(v); setEmailError('') }}
+          onChange={(v) => { setEmail(v); setEmailError(''); setFormError('') }}
           onBlur={() => setEmailError(email && !isValidEmail(email) ? 'Please enter a valid email address' : '')}
           placeholder="you@email.com"
           autoComplete="email"
           error={emailError}
+          required
+          disabled={loading}
         />
 
         <PasswordField
@@ -100,6 +125,7 @@ export default function SignupPage() {
           onChange={(v) => {
             setPassword(v)
             setPasswordError('')
+            setFormError('')
             if (confirm && v !== confirm) setConfirmError('Passwords do not match')
             else setConfirmError('')
           }}
@@ -107,15 +133,19 @@ export default function SignupPage() {
           autoComplete="new-password"
           error={passwordError}
           showStrength
+          required
+          disabled={loading}
         />
 
         <PasswordField
           label="Confirm password"
           value={confirm}
-          onChange={(v) => { setConfirm(v); setConfirmError('') }}
+          onChange={(v) => { setConfirm(v); setConfirmError(v && v !== password ? 'Passwords do not match' : '') }}
           onBlur={() => setConfirmError(confirm && confirm !== password ? 'Passwords do not match' : '')}
           autoComplete="new-password"
           error={confirmError}
+          required
+          disabled={loading}
         />
 
         {/* Terms */}
@@ -150,12 +180,9 @@ export default function SignupPage() {
           </span>
         </label>
 
-        <SubmitButton disabled={!formValid || loading}>
+        <SubmitButton disabled={!formValid || loading} loading={loading}>
           {loading ? 'Creating account…' : 'Create Account'}
         </SubmitButton>
-
-        <SocialDivider />
-        <SocialButtons />
 
         <p className="text-center text-[12px] text-muted mt-6">
           Already have an account?{' '}

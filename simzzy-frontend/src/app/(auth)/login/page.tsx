@@ -9,8 +9,7 @@ import {
   Field,
   PasswordField,
   SubmitButton,
-  SocialDivider,
-  SocialButtons,
+  FormError,
 } from '@/components/auth/AuthForm'
 import { toast } from '@/store/toast'
 
@@ -26,6 +25,7 @@ function LoginForm() {
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [formError, setFormError] = useState('')
   const [remember, setRemember] = useState(true)
   const [loading, setLoading] = useState(false)
 
@@ -34,15 +34,25 @@ function LoginForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!formValid || loading) return
+    setFormError('')
     setLoading(true)
-    const res = await signIn('credentials', { email, password, redirect: false })
-    if (res?.error) {
+    try {
+      const res = await signIn('credentials', { email, password, redirect: false })
+      if (res?.error) {
+        const msg = 'Invalid email or password, or your account is suspended.'
+        setFormError(msg)
+        toast.error('Sign in failed', msg)
+        return
+      }
+      // Full reload so the session + role-based navbar (Admin Panel) are correct immediately.
+      window.location.assign(callbackUrl)
+    } catch {
+      const msg = 'Network error — please check your connection and try again.'
+      setFormError(msg)
+      toast.error('Something went wrong', msg)
+    } finally {
       setLoading(false)
-      toast.error('Sign in failed', 'Invalid email or password, or your account is suspended')
-      return
     }
-    // Full reload so the session + role-based navbar (Admin Panel) are correct immediately.
-    window.location.assign(callbackUrl)
   }
 
   return (
@@ -51,25 +61,31 @@ function LoginForm() {
       title="Sign in to your account"
       subtitle="Sign in to your Simzzy account"
     >
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate aria-busy={loading}>
+        <FormError message={formError} />
+
         <Field
           label="Email address"
           type="email"
           value={email}
-          onChange={(v) => { setEmail(v); setEmailError('') }}
+          onChange={(v) => { setEmail(v); setEmailError(''); setFormError('') }}
           onBlur={() => setEmailError(email && !isValidEmail(email) ? 'Please enter a valid email address' : '')}
           placeholder="you@email.com"
           autoComplete="email"
           error={emailError}
+          required
+          disabled={loading}
         />
 
         <PasswordField
           label="Password"
           value={password}
-          onChange={(v) => { setPassword(v); setPasswordError('') }}
+          onChange={(v) => { setPassword(v); setPasswordError(''); setFormError('') }}
           onBlur={() => setPasswordError(password && password.length < 8 ? 'Password must be at least 8 characters' : '')}
           autoComplete="current-password"
           error={passwordError}
+          required
+          disabled={loading}
         />
 
         {/* Remember + forgot */}
@@ -104,12 +120,9 @@ function LoginForm() {
           </Link>
         </div>
 
-        <SubmitButton disabled={!formValid || loading}>
+        <SubmitButton disabled={!formValid || loading} loading={loading}>
           {loading ? 'Signing in…' : 'Sign In'}
         </SubmitButton>
-
-        <SocialDivider />
-        <SocialButtons />
 
         <p className="text-center text-[12px] text-muted mt-6">
           Don&apos;t have an account?{' '}

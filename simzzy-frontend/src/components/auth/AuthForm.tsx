@@ -45,6 +45,11 @@ export function AuthCard({
 
 /* ─── Standard input field ───────────────────────────────────────────────── */
 
+/** Derive a stable, DOM-safe id from a field label. */
+function fieldId(label: string) {
+  return 'f-' + label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
 export function Field({
   label,
   type = 'text',
@@ -54,6 +59,9 @@ export function Field({
   placeholder,
   error,
   autoComplete,
+  required,
+  disabled,
+  id,
 }: {
   label: string
   type?: string
@@ -63,28 +71,39 @@ export function Field({
   placeholder?: string
   error?: string
   autoComplete?: string
+  required?: boolean
+  disabled?: boolean
+  id?: string
 }) {
+  const inputId = id ?? fieldId(label)
+  const errorId = `${inputId}-error`
   return (
     <div className="mb-4">
-      <label className="block text-[12px] font-semibold text-secondary mb-1.5">
+      <label htmlFor={inputId} className="block text-[12px] font-semibold text-secondary mb-1.5">
         {label}
       </label>
       <input
+        id={inputId}
+        name={inputId}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        required={required}
+        disabled={disabled}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
         className={cn(
-          'w-full px-4 py-3 text-sm rounded-[14px] outline-none transition-all duration-300',
+          'w-full px-4 py-3 text-sm rounded-[14px] outline-none transition-all duration-300 disabled:opacity-60',
           'bg-white/[0.04] text-primary placeholder:text-muted',
           error
             ? 'border border-accent-pink focus:border-accent-pink'
             : 'border border-border focus:border-accent-purple focus:bg-white/[0.06] focus:shadow-[0_0_20px_rgba(147,51,234,0.1)]',
         )}
       />
-      {error && <p className="text-[11px] text-accent-pink mt-1">{error}</p>}
+      {error && <p id={errorId} role="alert" className="text-[11px] text-accent-pink mt-1">{error}</p>}
     </div>
   )
 }
@@ -100,6 +119,9 @@ export function PasswordField({
   error,
   autoComplete = 'current-password',
   showStrength = false,
+  required,
+  disabled,
+  id,
 }: {
   label: string
   value: string
@@ -109,25 +131,36 @@ export function PasswordField({
   error?: string
   autoComplete?: string
   showStrength?: boolean
+  required?: boolean
+  disabled?: boolean
+  id?: string
 }) {
   const [show, setShow] = useState(false)
   const strength = scorePassword(value)
+  const inputId = id ?? fieldId(label)
+  const errorId = `${inputId}-error`
 
   return (
     <div className="mb-4">
-      <label className="block text-[12px] font-semibold text-secondary mb-1.5">
+      <label htmlFor={inputId} className="block text-[12px] font-semibold text-secondary mb-1.5">
         {label}
       </label>
       <div className="relative">
         <input
+          id={inputId}
+          name={inputId}
           type={show ? 'text' : 'password'}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
           autoComplete={autoComplete}
+          required={required}
+          disabled={disabled}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? errorId : undefined}
           className={cn(
-            'w-full pl-4 pr-11 py-3 text-sm rounded-[14px] outline-none transition-all duration-300',
+            'w-full pl-4 pr-11 py-3 text-sm rounded-[14px] outline-none transition-all duration-300 disabled:opacity-60',
             'bg-white/[0.04] text-primary placeholder:text-muted',
             error
               ? 'border border-accent-pink focus:border-accent-pink'
@@ -166,7 +199,7 @@ export function PasswordField({
         </div>
       )}
 
-      {error && <p className="text-[11px] text-accent-pink mt-1">{error}</p>}
+      {error && <p id={errorId} role="alert" className="text-[11px] text-accent-pink mt-1">{error}</p>}
     </div>
   )
 }
@@ -188,77 +221,43 @@ function scorePassword(pwd: string): { level: number; label: string; color: stri
 
 export function SubmitButton({
   disabled,
+  loading,
   children,
 }: {
   disabled?: boolean
+  loading?: boolean
   children: React.ReactNode
 }) {
   return (
     <button
       type="submit"
       disabled={disabled}
+      aria-busy={loading || undefined}
       className={cn(
-        'w-full py-3.5 rounded-[14px] bg-gradient-btn text-white text-[14px] font-bold transition-all duration-300',
+        'w-full py-3.5 rounded-[14px] bg-gradient-btn text-white text-[14px] font-bold transition-all duration-300 inline-flex items-center justify-center gap-2',
         disabled
           ? 'opacity-50 cursor-not-allowed'
           : 'hover:opacity-90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,45,120,0.25)]',
       )}
     >
+      {loading && <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" aria-hidden="true" />}
       {children}
     </button>
   )
 }
 
-/* ─── Divider + social buttons ───────────────────────────────────────────── */
+/* ─── Inline form-level error banner ─────────────────────────────────────── */
 
-export function SocialDivider() {
+export function FormError({ message }: { message: string }) {
+  if (!message) return null
   return (
-    <div className="flex items-center gap-3 my-5">
-      <div className="flex-1 h-px bg-border" />
-      <span className="text-[11px] font-mono uppercase tracking-[1.5px] text-muted">
-        or continue with
-      </span>
-      <div className="flex-1 h-px bg-border" />
+    <div
+      role="alert"
+      className="mb-4 px-4 py-3 rounded-[14px] border border-accent-pink/40 bg-[rgba(255,45,120,0.08)] flex items-start gap-2.5"
+      style={{ animation: 'fadeIn 0.2s ease' }}
+    >
+      <span className="text-accent-pink text-[15px] leading-none mt-0.5" aria-hidden="true">⚠</span>
+      <p className="text-[12.5px] text-secondary">{message}</p>
     </div>
-  )
-}
-
-export function SocialButtons() {
-  return (
-    <div className="grid grid-cols-2 gap-3">
-      <button
-        type="button"
-        className="flex items-center justify-center gap-2 py-3 rounded-[14px] border border-border bg-card text-secondary text-[13px] font-semibold transition-all duration-200 hover:bg-card-hover hover:text-primary hover:border-border-hover"
-      >
-        <GoogleIcon />
-        Google
-      </button>
-      <button
-        type="button"
-        className="flex items-center justify-center gap-2 py-3 rounded-[14px] border border-border bg-card text-secondary text-[13px] font-semibold transition-all duration-200 hover:bg-card-hover hover:text-primary hover:border-border-hover"
-      >
-        <AppleIcon />
-        Apple
-      </button>
-    </div>
-  )
-}
-
-function GoogleIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A10.99 10.99 0 0 0 12 23z" />
-      <path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.48 12c0-.73.13-1.44.36-2.1V7.07H2.18A11 11 0 0 0 1 12c0 1.77.42 3.44 1.18 4.93l3.66-2.83z" />
-      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A10.99 10.99 0 0 0 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z" />
-    </svg>
-  )
-}
-
-function AppleIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.05 12.04c-.03-3.06 2.5-4.53 2.61-4.6-1.42-2.08-3.64-2.37-4.43-2.4-1.89-.19-3.69 1.11-4.65 1.11-.97 0-2.44-1.08-4.01-1.05-2.07.03-3.97 1.2-5.04 3.05-2.15 3.72-.55 9.23 1.55 12.26 1.02 1.48 2.24 3.14 3.83 3.08 1.54-.06 2.12-1 3.99-1 1.86 0 2.39 1 4.02.97 1.66-.03 2.7-1.5 3.71-2.99 1.18-1.71 1.66-3.39 1.68-3.47-.04-.02-3.22-1.23-3.26-4.96zm-3.05-9.1C14.85 1.95 15.43.66 15.27-.61c-1.07.04-2.36.71-3.24 1.72-.78.9-1.47 2.34-1.29 3.57 1.2.09 2.43-.61 3.26-1.74z" />
-    </svg>
   )
 }
